@@ -1,0 +1,28 @@
+package io.pivotal.pad.cronos.domain;
+
+public class CheckoutStatus {
+	
+	public static final String SUCCESS = "SUCCESS";
+	
+	public static final String FAILURE = "FAILURE";
+	
+	String status;
+	
+	public String getStatus() {
+		return status;
+	}
+
+	public String getOrderNumber() {
+		return orderNumber;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public void setOrderNumber(String orderNumber) {
+		this.orderNumber = orderNumber;
+	}
+
+	String orderNumber;
+}
