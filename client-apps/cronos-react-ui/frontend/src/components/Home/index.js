@@ -2,8 +2,7 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 //Internals
-import Highlights from '../Main/components/Highlights';
-import Hero from '../Main/components/Hero';
+import { Hero, Subscribe } from '../Main/components';
 import Products from '../Products';
 import './index.css';
 
@@ -20,6 +19,7 @@ class Home extends Component {
       <div>
         <Hero/>
         <Products addItemToCart={this.props.addItemToCart}/>
+        <Subscribe/>
       </div>
     );
   }

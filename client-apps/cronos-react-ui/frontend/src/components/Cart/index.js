@@ -6,9 +6,6 @@ import map from 'lodash/map';
 import './index.css';
 
 class CartProducts extends Component {
-  static propTypes = {
-    addItemToCart: PropTypes.func.isRequired,
-  };
   constructor(props) {
     super(props);
   }

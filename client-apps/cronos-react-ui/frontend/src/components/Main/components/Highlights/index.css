@@ -11,9 +11,8 @@
 
 #highlights-title {
   font-weight: lighter;
-  text-transform: uppercase;
   color: rgba(0, 0, 0, 0.7);
-  text-align: center;
+  text-align: left;
   font-size: 40px;
 }
 

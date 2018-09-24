@@ -82,7 +82,7 @@ nav a {
   fill: #8A949D55;
 }
 
-.nav-bar.nav-bar-scrolled li a:hover, .nav-bar li a.selected {
+.nav-bar.nav-bar-scrolled li a:hover, .nav-bar.nav-bar-scrolled li a.selected {
   background: transparent;
   color: #2A3033;
   transition: 0.35s cubic-bezier(0.375, 0.885, 0.60, 1) all;

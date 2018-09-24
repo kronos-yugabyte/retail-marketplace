@@ -9,6 +9,7 @@
     "prop-types": "^15.5.10",
     "react": "^16.2.0",
     "react-animate-css": "0.0.1",
+    "react-bootstrap": "0.32.4",
     "react-dom": "^16.2.0",
     "react-materialize": "^1.0.10",
     "react-router-dom": "^4.2.2",

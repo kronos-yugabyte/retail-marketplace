@@ -1,10 +1,45 @@
 .footer {
-  height: 3em;
-  background-color: black;
-  color: #FFF;
+  height: 220px;
+  background-color: #fff;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   font-weight: lighter;
+}
+.footer > div {
+  align-self: flex-start;
+  padding: 30px 35px;
+}
+.footer-block1 {
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: 350px;
+}
+.footer-block2 {
+  flex-grow: 3;
+}
+.footer-block3 {
+  flex-grow: 3;
+}
+
+.footer .logo + p {
+  margin-top: 80px;
+  margin-left: 40px;
+}
+.footer h6 {
+  margin-bottom: 30px;
+}
+.footer ul li {
+  float: left;
+}
+.footer ul li a {
+  color: #8A949D;
+}
+.footer ul li:nth-child(odd) {
+  min-width: 200px;
+  clear: left;
+}
+.footer ul li:nth-child(even) {
+  margin-bottom: 5px;
 }
