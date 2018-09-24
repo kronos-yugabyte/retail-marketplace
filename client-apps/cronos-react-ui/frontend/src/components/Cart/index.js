@@ -9,13 +9,16 @@ class CartProducts extends Component {
   static propTypes = {
     addItemToCart: PropTypes.func.isRequired,
   };
+  constructor(props) {
+    super(props);
+  }
 
   render() {
     return(
       <div>
         <h1>This is the cart {this.props.cart.total}</h1>
         <div className="items">
-          {map(this.props.cartProducts, (product) => {
+          {map(this.props.cart.date, (product) => {
             <h1>{product.name}</h1>
           })}
         </div>
