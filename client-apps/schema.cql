@@ -7,6 +7,7 @@ CREATE KEYSPACE IF NOT EXISTS cronos;
 CREATE TABLE cronos.products (
     asin text PRIMARY KEY,
     title text,
+    description text,
     price double,
     imurl text,
     also_bought frozen<list<text>>,
@@ -21,7 +22,11 @@ CREATE TABLE cronos.products (
 ) WITH default_time_to_live = 0
     AND transactions = {'enabled': 'false'};
 
-//
+// Missing description and price
+
+
+
+
 // Table to store the rankings for the various categories of a product.
 //
 CREATE TABLE cronos.product_rankings (
@@ -49,10 +54,13 @@ CREATE TABLE cronos.orders (
     order_time text
 ) WITH default_time_to_live = 0
     AND transactions = {'enabled': 'true'};
-    
-// Product Inventory Table    
+
+// Product Inventory Table
 CREATE TABLE cronos.product_inventory (
     asin text PRIMARY KEY,
     quantity int
 ) WITH default_time_to_live = 0
     AND transactions = {'enabled': 'true'};
+
+//cat asinlist | awk '{print $1}' | tr '\n' ',' > asins.txt
+// bin/cqlsh 35.232.104.128 --connect-timeout=3600 --request-timeout=3600 -e "paging off; select asin from cronos.products limit 1000000" > asinlist

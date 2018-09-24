@@ -7,10 +7,13 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Profile;
 import org.springframework.data.cassandra.config.AbstractCassandraConfiguration;
+import org.springframework.data.cassandra.config.CassandraCqlClusterFactoryBean;
 import org.springframework.data.cassandra.config.SchemaAction;
 import org.springframework.data.cassandra.core.CassandraTemplate;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
+import com.datastax.driver.core.HostDistance;
+import com.datastax.driver.core.PoolingOptions;
 import com.datastax.driver.core.Session;
 
 @Configuration
@@ -45,6 +48,26 @@ class CassandraCloudConfig {
 		@Override
 		public int getPort() {
 			return cassandraPort;
+		}
+//
+//		@Bean
+//		public CassandraCqlClusterFactoryBean cluster() {
+//
+//			CassandraCqlClusterFactoryBean cluster = new CassandraCqlClusterFactoryBean();
+//			cluster.setContactPoints(cassandraHost);
+//			cluster.setPoolingOptions(getPoolingOptions());
+//
+//			return cluster;
+//		}
+//		
+		@Override
+		public PoolingOptions getPoolingOptions() {
+			
+			PoolingOptions poolingOptions = new PoolingOptions()
+		    .setMaxRequestsPerConnection(HostDistance.LOCAL, 32768)
+		    .setMaxRequestsPerConnection(HostDistance.REMOTE, 2000);
+			
+			return poolingOptions;
 		}
 
 		@Override
