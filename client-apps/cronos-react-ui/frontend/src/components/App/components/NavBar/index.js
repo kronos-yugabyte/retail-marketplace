@@ -25,7 +25,6 @@ class Navbar extends Component {
   render() {
 
     return(
-    <div className="header">
     <div className="navbar-fixed">
     <nav className="nav-bar">
       <div className="nav-links">
@@ -61,7 +60,6 @@ class Navbar extends Component {
         </NavLink>
       </div>
     </nav>
-    </div>
     </div>
     )
   }

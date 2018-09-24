@@ -19,8 +19,6 @@ export default class App extends Component {
       },
       index: 0,
     };
-    // this.addItemToCart = this.addItemToCart.bind(this);
-    // this.addItemToCart = this.totalReducer.bind(this);
   }
 
   totalReducer(data) {
@@ -37,56 +35,42 @@ export default class App extends Component {
     if (product) {
       console.warn(this.state);
       console.log("Added to Cart "+product.title);
-      // this.setState({ current_query: this.props.query });
-      //this.state.current_query = this.props.query;
-      const self = this;
-      const url = 'http://cronos-yugabyte-api-dev.apps.alhambra.cf-app.com/api/v1/shoppingCart/addItemToCart';
-      // let data = new FormData();
-      // data.append( "json", JSON.stringify( {asin: product.id} ));
-    
-      const dataMerged = {};
-      const data = self.state.cart.data;
-      dataMerged[product.id] = data[product.id] ? data[product.id] +1 : 1;
       
-      self.setState({
-        cart: {
-          data: {...data , ...dataMerged},
-          total: self.totalReducer({...data , ...dataMerged})
-        }
-      });
+      const self = this;
+      const url = '/shoppingCart/addProduct';
+      let requestData = new FormData();
+      requestData.append( "json", JSON.stringify( {asin: product.id} ));
 
-      // this.setState({
-      //   cart: {
-      //     data: self.state.cart.data,
-      //     total: self.totalReducer(data)
-      //   }
-      // });
-      // fetch(url, {  
-      //   method: 'POST',
-      //   mode:"cors",
-      //   body: data
-      // })
-      //   .then(data => {
-      //     debugger;
-      //     self.setState({
-      //       cart: {
-      //         data,
-      //         total: 1 //self.totalReducer(data)
-      //       }
-      //     });
-      //   })
-      //   .catch(error => { 
-      //     debugger;
-      //     const dataMerged = {};
-      //     dataMerged[product.id] = data[product.id] ? data[product.id] +1 : 1;
-      //     self.setState({
-      //       cart: {
-      //         data: {...data, ...dataMerged},
-      //         total: 1 //self.totalReducer(data)
-      //       }
-      //     });
-      //     console.warn('Request failed', error);
-      //   });
+      fetch(url, {  
+        method: 'POST',
+        mode: "no-cors",
+        body: requestData
+      })
+        .then(data => {
+          if(data.ok) {
+            self.setState({
+              cart: {
+                data,
+                total: self.totalReducer(data)
+              }
+            });
+          } else {
+            const dataMerged = {};
+            const data = self.state.cart.data;
+            dataMerged[product.id] = data[product.id] ? data[product.id] + 1 : 1;
+            
+            self.setState({
+              cart: {
+                data: {...data , ...dataMerged},
+                total: self.totalReducer({...data , ...dataMerged})
+              }
+            });
+          }
+        })
+        .catch(error => {
+          console.warn('Request failed', error);
+
+        });
     }
   }
 
