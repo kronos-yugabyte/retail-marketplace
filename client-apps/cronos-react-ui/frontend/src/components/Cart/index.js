@@ -13,7 +13,7 @@ class CartProducts extends Component {
   render() {
     return(
       <div>
-        <h1>This is the cart</h1>
+        <h1>This is the cart {this.props.cart.total}</h1>
         <div className="items">
           {map(this.props.cartProducts, (product) => {
             <h1>{product.name}</h1>

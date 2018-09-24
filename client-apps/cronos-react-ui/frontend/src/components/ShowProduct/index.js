@@ -11,6 +11,7 @@ class ShowProduct extends Component {
   state = {product_id: "", product: {}}
 
   componentDidMount() {
+    //debugger;
     var new_product_id = this.props.match.params.id;
     this.fetchProductDetails(new_product_id)
   }
@@ -34,6 +35,7 @@ class ShowProduct extends Component {
     const currentProduct = this.state.product;
     const relatedProducts = currentProduct.relatedProducts;
     console.log(currentProduct);
+    console.log(this.props.addItemToCart);
     if (!currentProduct) {
       return ("");      
     }
@@ -78,7 +80,7 @@ class ShowProduct extends Component {
               </div>
               <div id="product-price">${currentProduct.price}</div>
               <div className="add-to-cart">
-                <Button color="primary" class="mdc-button mdc-button--raised">
+                <Button color="primary" onClick={() => this.props.addItemToCart(currentProduct)} className="mdc-button mdc-button--raised">
                   Add to cart
                 </Button>
               </div>

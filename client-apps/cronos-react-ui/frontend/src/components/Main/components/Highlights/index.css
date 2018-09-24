@@ -1,6 +1,8 @@
 .highlights {
-  height: 200px;
+  height: 120px;
   width: 100%;
+  vertical-align: middle;
+  padding-top: 30px;
   align-items: center;
   justify-content: center;
   font-family: serif;
@@ -34,6 +36,12 @@ p a {
 }
 
 p a:hover {
+  background: #f75821;
+  color: #fff;
+  transition: 0.5s;
+}
+
+p a.selected {
   background: #f75821;
   color: #fff;
   transition: 0.5s;

@@ -35,6 +35,12 @@
   transition: transform 300ms bounce;
 }
 
+.item .price-add {
+  border: none;
+  background: none;
+  float: right;
+}
+
 .items {
   display: flex;
   flex-wrap: wrap;

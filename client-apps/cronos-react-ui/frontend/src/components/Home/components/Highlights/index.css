@@ -1,0 +1,48 @@
+.highlights {
+  height: 120px;
+  width: 100%;
+  vertical-align: middle;
+  padding-top: 30px;
+  align-items: center;
+  justify-content: center;
+  font-family: serif;
+  background: transparent;
+}
+
+#highlights-title {
+  font-weight: lighter;
+  text-transform: uppercase;
+  color: rgba(0, 0, 0, 0.7);
+  text-align: center;
+  font-size: 40px;
+}
+
+.links-highlights {
+  display: flex;
+  justify-content: center;
+}
+
+p a {
+  color: #999;
+  font-size: 20px;
+  text-decoration: none;
+  padding: 0 1em;
+  background: rgba(255, 255, 255, 0.7);
+  margin: 2em;
+  padding: 1em 2em;
+  border-radius: 5px;
+  transition: 0.5s;
+  height: 1em;
+}
+
+p a:hover {
+  color: #f75821;
+  background: none;
+  transition: 0.5s;
+}
+
+p a.selected {
+  background: #f75821;
+  color: #fff;
+  transition: 0.5s;
+}

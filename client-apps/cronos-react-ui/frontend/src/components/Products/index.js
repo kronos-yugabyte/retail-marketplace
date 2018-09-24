@@ -2,16 +2,23 @@
 import React, { Component } from 'react';
 import { Icon } from 'react-materialize';
 import { Link } from 'react-router-dom';
+import Highlights from '../Main/components/Highlights';
 //Internals
 import './index.css';
 
 class Products extends Component {
   state = {current_query: "", products: []}
 
+  componentDidMount() {
+    this.fetchProducts();
+  }
+
   fetchProducts() {
-    if (this.state.products.length == 0 ||
-        this.state.current_query != this.props.query) {
-      this.state.current_query = this.props.query;
+    if (this.state.products.length === 0 ||
+        this.state.current_query !== this.props.query) {
+
+      this.setState({ current_query: this.props.query });
+      //this.state.current_query = this.props.query;
       var url = '/products';
       if (this.props.query) {
         url = '/products/' + this.props.query;
@@ -22,17 +29,40 @@ class Products extends Component {
     }
   }
 
+  setSortName(query) {
+    switch (query) {
+      case "num_stars":
+        return "Books with the Highest Rating";
+      case "num_reviews":
+        return "Books with the Most Reviews";
+      case "num_buys":
+        return "Best Selling Books";
+      case "num_views":
+        return "Books with the Most Pageviews";
+      default:
+        return "";
+    }
+  }
+
   render() {
-    this.fetchProducts();
-    var stars = ["star_border", "star_border", "star_border", "star_border", "star_border"];
+    let stars = ["star_border", "star_border", "star_border", "star_border", "star_border"];
+    const self = this;
     return (
       <div className="products">
-        <div className="products-title">
-          <h4>{this.props.name}</h4>
+      <div className="products-title">
+        <h1 id="highlights-title">{this.props.name || "BOOKS AT YUGASTORE"}</h1>
+      </div>
+        <div className="content">
+          <Highlights />
         </div>
 
         <div className="items">
-          {this.state.products.map((product) => {
+          {this.state.products.sort((a, b)=>{
+            if(self.props.sort) {
+              return a[self.props.sort] > b[self.props.sort];
+            }
+            return false;
+          }).map((product) => {
               if (product.avg_stars > 0) {
                 stars[0] = (product.avg_stars < 1) ? "star_half" : "star";
               }
@@ -48,9 +78,10 @@ class Products extends Component {
               if (product.avg_stars > 4) {
                 stars[4] = (product.avg_stars < 5) ? "star_half" : "star";
               }
-              return(
-                <div className="item">
-                  <Link to={`/item/${product.asin}`}>
+              //debugger;
+              return (
+                <div className="item" key={product.id}>
+                  <Link to={`/item/${product.id}`}>
                   <div className="product-img">
                     <img alt={product.title} src={product.imUrl} />
                   </div>
@@ -68,10 +99,10 @@ class Products extends Component {
                     </div>
                     {product.num_stars} stars from {product.num_reviews} reviews
                   </div>
-                  <div className="price-add">
+                  <button onClick={() => this.props.addItemToCart(product)} className="price-add">
                     <h5 id="product-price">${product.price}</h5>
-                    <Icon small onClick={() => this.addProduct(product)} id="add-icon">add_shopping_cart</Icon>
-                  </div>
+                    <Icon small id="add-icon">add_shopping_cart</Icon>
+                  </button>
                 </div>
               )
           })}

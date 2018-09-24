@@ -6,7 +6,6 @@ import './index.css';
 
 const Highlights = () => (
   <div className="highlights">
-    <h1 id="highlights-title">Books at YugaStore</h1>
     <div className="links-highlights">
       <p>
         <NavLink activeClassName="selected" className="nav-link-highlights" to="/sort/num_stars">
