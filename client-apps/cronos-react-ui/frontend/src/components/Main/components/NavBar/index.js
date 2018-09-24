@@ -1,7 +1,8 @@
 // Dependencies
 import React, { Component } from 'react';
-import { Icon } from 'react-materialize';
-import { NavLink } from 'react-router-dom';
+import { Logo } from '../';
+import { Icon } from "../../../common";
+import { NavLink, withRouter } from 'react-router-dom';
 // Internals
 import './index.css';
 
@@ -23,48 +24,42 @@ class Navbar extends Component {
   }
 
   render() {
-
+    const { match, location, history } = this.props
+    const notIndex = location.pathname!=="/";
     return(
-    <div className="header">
-    <div className="navbar-fixed">
-    <nav className="nav-bar">
+    <nav className={`nav-bar ${this.props.scrolled || notIndex ? 'nav-bar-scrolled' : '' }`}>
+      <NavLink to="/">
+        <Logo mode={this.props.scrolled || notIndex ? 'dark' : 'light'} />
+      </NavLink>
       <div className="nav-links">
         <ul>
-          <li><NavLink activeClassName="selected" className="nav-link" exact to="/">
-            <span className="nav-link-icon"><i className="fas fa-home"></i></span>
-            <span className="nav-link-text">Home</span>
-          </NavLink></li>
           <li><NavLink activeClassName="selected" className="nav-link" to="/business">
-            <span className="nav-link-icon"><i className="fas fa-dollar-sign"></i></span>
+            <span className="nav-link-icon"><Icon icon="dollar" /></span>
             <span className="nav-link-text">Business & Investing</span>
           </NavLink></li>
+          <li><NavLink activeClassName="selected" className="nav-link" to="/mystery">
+            <span className="nav-link-icon"><Icon icon="art" /></span>
+            <span className="nav-link-text">Art & Design</span>
+          </NavLink></li>
           <li><NavLink activeClassName="selected" className="nav-link" to="/cookbooks">
-            <span className="nav-link-icon"><i className="fas fa-utensils"></i></span>
+            <span className="nav-link-icon"><Icon icon="cookbook" /></span>
             <span className="nav-link-text">Cookbooks</span>
           </NavLink></li>
-          <li><NavLink activeClassName="selected" className="nav-link" to="/mystery">
-            <span className="nav-link-icon"><i className="fas fa-user-secret"></i></span>
-            <span className="nav-link-text">Mystery & Suspense</span>
-          </NavLink></li>
           <li><NavLink activeClassName="selected" className="nav-link" to="/scifi">
-            <span className="nav-link-icon"><i className="fas fa-space-shuttle"></i></span>
+            <span className="nav-link-icon"><Icon icon="scifi" /></span>
             <span className="nav-link-text">Sci-Fi & Fantasy</span>
           </NavLink></li>
         </ul>
       </div>
-      <div className="nav-cart">
-        <NavLink activeClassName="selected" to="/cart">
-          <div>
-            <i className="fas fa-cart-arrow-down"></i>
-            <span className="nav-cart-count">{this.props.cart.total}</span>
-          </div>
+      <div className='nav-cart'>
+        <NavLink className={`${this.props.cart.total ? 'nav-cart-active' : '' }`} to="/cart">
+          <Icon icon="cart" color={this.props.scrolled || notIndex ? '#000000' : '#ffffff' }/>Cart
+          {this.props.cart.total > 0 && <span className="nav-cart-count">{this.props.cart.total}</span>}
         </NavLink>
       </div>
     </nav>
-    </div>
-    </div>
     )
   }
 }
 
-export default Navbar;
+export default withRouter(Navbar);

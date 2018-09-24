@@ -1,12 +1,13 @@
 // Dependencies
-import axios from 'axios';
+import _ from 'lodash';
 import React, { Component } from 'react';
 // Externals
 import Cart from '../Cart';
 import ShowProduct from '../ShowProduct';
 import Products from '../Products';
+import Home from '../Home';
 import { Navbar, Footer } from '../Main/components';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, withRouter } from 'react-router-dom';
 import './index.css';
 
 export default class App extends Component {
@@ -17,8 +18,33 @@ export default class App extends Component {
         data: {},
         total: 0
       },
+      scrolled: false,
       index: 0,
     };
+  }
+  componentWillUnmount() {
+    window.removeEventListener('scroll');
+  }
+
+  componentWillMount() {
+    window.addEventListener('scroll', () =>{
+      let supportPageOffset = window.pageXOffset !== undefined;
+      let isCSS1Compat = ((document.compatMode || '') === 'CSS1Compat');
+      const scroll = {
+         x: supportPageOffset ? window.pageXOffset : isCSS1Compat ? document.documentElement.scrollLeft : document.body.scrollLeft,
+         y: supportPageOffset ? window.pageYOffset : isCSS1Compat ? document.documentElement.scrollTop : document.body.scrollTop
+      };
+  
+      if(scroll.y > 50 && !this.state.scrolled){
+        this.setState({
+          scrolled: true
+        });
+      } else if (scroll.y < 50 && this.state.scrolled) {
+        this.setState({
+          scrolled: false
+        });
+      }
+    });//ms
   }
 
   totalReducer(data) {
@@ -37,21 +63,21 @@ export default class App extends Component {
       console.log("Added to Cart "+product.title);
       
       const self = this;
-      const url = '/shoppingCart/addProduct';
-      let requestData = new FormData();
-      requestData.append( "json", JSON.stringify( {asin: product.id} ));
+      const url = '/cart/add/?asin='+product.id;
+      // let requestData = new FormData();
+      // requestData.append( "json", JSON.stringify( {asin: product.id} ));
 
       fetch(url, {  
-        method: 'POST',
+        method: 'GET',
         mode: "no-cors",
-        body: requestData
+        //body: requestData
       })
         .then(data => {
           if(data.ok) {
             self.setState({
               cart: {
-                data,
-                total: self.totalReducer(data)
+                data: {}[product.id] = 1,
+                total: 1 //self.totalReducer(data)
               }
             });
           } else {
@@ -93,11 +119,11 @@ export default class App extends Component {
     return(
 
       <div>
-        <Navbar cart={this.state.cart}/>
+        <Navbar cart={this.state.cart} scrolled={this.state.scrolled}/>
         <Switch>
           <Route exact path="/" 
             render={(props) => (
-              <Products
+              <Home
                 addItemToCart={this.addItemToCart} />
             )} />
       

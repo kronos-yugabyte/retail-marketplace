@@ -47,6 +47,7 @@ class Products extends Component {
   render() {
     let stars = ["star_border", "star_border", "star_border", "star_border", "star_border"];
     const self = this;
+    debugger;
     return (
       <div className="products">
       <div className="products-title">

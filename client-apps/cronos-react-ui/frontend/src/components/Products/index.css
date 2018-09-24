@@ -25,7 +25,6 @@
 .item {
   height: 35em;
   width: 20em;
-  font-family: 'Quicksand', sans-serif;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -46,7 +45,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  width: 100vw;
+  width: 100%;
 }
 
 .items-title {

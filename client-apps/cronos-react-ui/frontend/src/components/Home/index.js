@@ -2,7 +2,8 @@
 import axios from 'axios';
 import React, { Component } from 'react';
 //Internals
-import Highlights from './components/Highlights';
+import Highlights from '../Main/components/Highlights';
+import Hero from '../Main/components/Hero';
 import Products from '../Products';
 import './index.css';
 
@@ -17,13 +18,8 @@ class Home extends Component {
   render() {
     return (
       <div>
-        <div className="content">
-       	  <Highlights />
-        </div>
-        {this.props.children}
-        <div className="content">
-          <Products addItemToCart={this.props.addItemToCart}/>
-        </div>
+        <Hero/>
+        <Products addItemToCart={this.props.addItemToCart}/>
       </div>
     );
   }

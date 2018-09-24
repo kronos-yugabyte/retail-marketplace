@@ -12,7 +12,6 @@
 .cart-item {
   height: 30em;
   width: 20em;
-  font-family: 'Quicksand', sans-serif;
   overflow: hidden;
   display: flex;
   flex-direction: column;

@@ -5,8 +5,11 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.HttpEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonElement;
@@ -45,5 +48,22 @@ public class DashboardRestConsumer {
 		            });
 		String productDetailsJsonResponse = rateResponse.getBody();
 		return productDetailsJsonResponse;
+	}	
+
+	public String addProductToCart(String asin) {
+
+		String restURL = restUrlBase + "/shoppingCart/addProduct";
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("asin", asin);
+		
+
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(params, null);
+
+		ResponseEntity<String> rateResponse =
+		        restTemplate.exchange(restURL,
+		                    HttpMethod.POST, request, new ParameterizedTypeReference<String>() {
+		            });
+		String addProductJsonResponse = rateResponse.getBody();
+		return addProductJsonResponse;
 	}	
 }
