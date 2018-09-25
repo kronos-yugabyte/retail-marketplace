@@ -9,6 +9,6 @@ public interface ProductRankingService {
 
 	Optional<ProductRanking> findProductRankingById(String asin);
 	
-	List<ProductRanking> getProductsByCategory(String category);
+	List<ProductRanking> getProductsByCategory(String category, int limit, int offset);
 	
 }

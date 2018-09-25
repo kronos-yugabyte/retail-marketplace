@@ -9,6 +9,6 @@ public interface ProductService {
 
     Optional<ProductMetadata> findById(String id);
 
-    List<ProductMetadata> findAllProductsPageable(int size);
+    List<ProductMetadata> findAllProductsPageable(int limit, int offset);
 
 }

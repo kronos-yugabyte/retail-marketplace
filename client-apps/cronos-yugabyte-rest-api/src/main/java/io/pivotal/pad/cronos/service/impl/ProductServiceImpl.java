@@ -29,8 +29,8 @@ public class ProductServiceImpl implements ProductService {
     }
 
 	@Override
-	public List<ProductMetadata> findAllProductsPageable(int size) {
+	public List<ProductMetadata> findAllProductsPageable(int limit, int offset) {
 		
-		return productRepository.getProducts(size);
+		return productRepository.getProducts(limit, offset);
 	}
 }

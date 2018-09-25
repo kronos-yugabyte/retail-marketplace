@@ -25,9 +25,9 @@ public class ProductRankingServiceImpl implements ProductRankingService{
 	}
 
 	@Override
-	public List<ProductRanking> getProductsByCategory(String category) {
+	public List<ProductRanking> getProductsByCategory(String category, int limit, int offset) {
 		
-		return productRankingRepository.getProductsByCategory(category);
+		return productRankingRepository.getProductsByCategory(category, limit, offset);
 	}
 
 }

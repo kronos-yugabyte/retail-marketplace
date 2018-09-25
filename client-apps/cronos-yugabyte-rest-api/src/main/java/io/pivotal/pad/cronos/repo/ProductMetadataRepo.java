@@ -14,9 +14,9 @@ import io.pivotal.pad.cronos.domain.ProductMetadata;
 @RepositoryRestResource(path = "productmetadata")
 public interface ProductMetadataRepo extends CassandraRepository<ProductMetadata, String> {
 	
-	@Query("SELECT * FROM cronos.products limit ?0")
+	@Query("SELECT * FROM cronos.products limit ?0 offset ?1")
 	@RestResource(path = "products", rel = "products")
-	public List<ProductMetadata> getProducts(@Param("limit") int limit);
+	public List<ProductMetadata> getProducts(@Param("limit") int limit, @Param("offset") int offset);
 
 	Optional<ProductMetadata> findById(String id);
 }

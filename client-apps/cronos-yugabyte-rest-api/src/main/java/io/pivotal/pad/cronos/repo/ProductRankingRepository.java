@@ -14,8 +14,8 @@ public interface ProductRankingRepository extends CassandraRepository<ProductRan
 	@RestResource(path = "product", rel = "product")
 	Optional<ProductRanking> findProductRankingById(String asin);
 	
-	@Query("SELECT * FROM cronos.product_rankings where category =?0 limit 100")
+	@Query("SELECT * FROM cronos.product_rankings where category =?0 limit ?1 offset ?2")
 	@RestResource(path = "category", rel = "category")
-	public List<ProductRanking> getProductsByCategory(@Param("name") String category);
+	public List<ProductRanking> getProductsByCategory(@Param("name") String category, @Param("limit") int limit, @Param("offset") int offset);
 
 }
