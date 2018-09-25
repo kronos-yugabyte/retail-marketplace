@@ -24,9 +24,9 @@ public class DashboardRestConsumer {
 	@Value("${cronos.yugabyte.api:http://localhost:8080/api/v1}")
 	String restUrlBase;
 
-	public String getHomePageProducts(int limit) {
+	public String getHomePageProducts(int limit, int offset) {
 
-		String restURL = restUrlBase + "/productmetadata/search/products?limit=" + limit;
+		String restURL = restUrlBase + "/productmetadata/search/products?limit=" + limit + "&offset=" + offset;
 		ResponseEntity<String> rateResponse =
 		        restTemplate.exchange(restURL,
 		                    HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
@@ -36,6 +36,21 @@ public class DashboardRestConsumer {
 		JsonObject jsonObject = new Gson().fromJson(productListJsonResponse, JsonObject.class);
 		JsonObject productListjsonObject = jsonObject.get("_embedded").getAsJsonObject();
 		JsonElement productListJsonArray = productListjsonObject.get("productMetadatas").deepCopy();
+		return productListJsonArray.toString();
+	}
+
+	public String getProductsByCategory(String name, int limit, int offset) {
+
+		String restURL = restUrlBase + "/productRankings/search/category?name=" + name+ "&limit=" + limit + "&offset=" + offset;
+		ResponseEntity<String> rateResponse =
+		        restTemplate.exchange(restURL,
+		                    HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
+		            });
+		String productListJsonResponse = rateResponse.getBody();
+
+		JsonObject jsonObject = new Gson().fromJson(productListJsonResponse, JsonObject.class);
+		JsonObject productListjsonObject = jsonObject.get("_embedded").getAsJsonObject();
+		JsonElement productListJsonArray = productListjsonObject.get("productRankings").deepCopy();
 		return productListJsonArray.toString();
 	}
 

@@ -34,20 +34,20 @@ class Navbar extends Component {
       <div className="nav-links">
         <ul>
           <li><NavLink activeClassName="selected" className="nav-link" to="/business">
-            <span className="nav-link-icon"><Icon icon="dollar" /></span>
-            <span className="nav-link-text">Business & Investing</span>
+            <span className="nav-link-icon"><Icon icon="book" /></span>
+            <span className="nav-link-text">Books</span>
           </NavLink></li>
           <li><NavLink activeClassName="selected" className="nav-link" to="/mystery">
-            <span className="nav-link-icon"><Icon icon="art" /></span>
-            <span className="nav-link-text">Art & Design</span>
+            <span className="nav-link-icon"><Icon icon="cart" /></span>
+            <span className="nav-link-text">Music</span>
           </NavLink></li>
           <li><NavLink activeClassName="selected" className="nav-link" to="/cookbooks">
-            <span className="nav-link-icon"><Icon icon="cookbook" /></span>
-            <span className="nav-link-text">Cookbooks</span>
+            <span className="nav-link-icon"><Icon icon="art" /></span>
+            <span className="nav-link-text">Beauty</span>
           </NavLink></li>
           <li><NavLink activeClassName="selected" className="nav-link" to="/scifi">
             <span className="nav-link-icon"><Icon icon="scifi" /></span>
-            <span className="nav-link-text">Sci-Fi & Fantasy</span>
+            <span className="nav-link-text">Electronics</span>
           </NavLink></li>
         </ul>
       </div>
