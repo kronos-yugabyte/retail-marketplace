@@ -6,7 +6,7 @@ import Cart from '../Cart';
 import ShowProduct from '../ShowProduct';
 import Products from '../Products';
 import Home from '../Home';
-import { Navbar, Footer } from '../Main/components';
+import { Navbar, Footer, Subscribe } from '../Main/components';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
@@ -173,29 +173,25 @@ export default class App extends Component {
                 cart={this.state.cart} removeItemFromCart={this.removeItemFromCart}/>
             )} />
       
-          <Route path="/business"
+          <Route path="/music"
             render={(props) => (
               <Products
-                name={"Business Books"}
-                query={"category/business"} />
+                category="Music" />
             )} />
-          <Route path="/cookbooks"
+          <Route path="/books"
             render={(props) => (
               <Products
-                name={"Cookbooks"}
-                query={"category/cookbooks"} />
+                category={"Books"} />
             )} />
-          <Route path="/mystery"
+          <Route path="/beauty"
             render={(props) => (
               <Products
-                name={"Mystery & Suspense"}
-                query={"category/mystery"} />
+                category={"Beauty"} />
             )} />
-          <Route path="/scifi"
+          <Route path="/electronics"
             render={(props) => (
               <Products
-                name={"Sci-Fi & Fantasy"}
-                query={"category/scifi"} />
+                category={"Electronics"} />
             )} />
       
           <Route path="/sort/:query"
@@ -209,6 +205,7 @@ export default class App extends Component {
             <ShowProduct {...props} addItemToCart={this.addItemToCart}/>
           )}/>
         </Switch>
+        <Subscribe/>
         <Footer />
       </div>
     )

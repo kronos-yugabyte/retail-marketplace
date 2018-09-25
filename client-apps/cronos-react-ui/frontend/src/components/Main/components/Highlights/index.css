@@ -9,11 +9,24 @@
   background: transparent;
 }
 
-#highlights-title {
+.highlights-title {
   font-weight: lighter;
-  color: rgba(0, 0, 0, 0.7);
+  color: #79848A;
+  margin: 0;
+  margin-bottom: 30px;
   text-align: left;
-  font-size: 40px;
+  font-size: 36px;
+  text-transform: none;
+  padding: 0 10px;
+}
+
+.highlights-title a {
+  color: #79848A70;
+}
+
+
+.highlights-title a:hover {
+  color: #2BB2AC;
 }
 
 .links-highlights {

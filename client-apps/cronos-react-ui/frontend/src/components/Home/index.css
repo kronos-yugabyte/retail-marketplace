@@ -1,6 +1,9 @@
 .content {
-  display: flex;
   margin: 0;
-  width: 100%;
-  justify-content: space-between;
+  padding-top: 95px;
+}
+
+.paragraph {
+  margin: 0;
+  padding-top: 50px;
 }

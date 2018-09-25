@@ -22,7 +22,7 @@
     min-width: 160px;
     padding: 0 30px !important;
     border-radius: 26px !important;
-    font-size: 18px;
+    font-size: 18px !important;
 }
 .btn .icon {
     vertical-align: middle;

@@ -3,6 +3,10 @@
     min-height: 150px;
 }
 
+.left {
+    padding-top: 15px;
+}
+
 .left p {
     width: 300px;
     font-weight: 300;
