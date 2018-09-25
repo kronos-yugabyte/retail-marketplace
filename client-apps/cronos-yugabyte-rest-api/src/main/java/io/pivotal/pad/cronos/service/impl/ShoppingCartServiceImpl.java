@@ -129,14 +129,15 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 						+ entry.getValue() + " where asin = '" + entry.getKey() + "' ;");
 				orderDetails.append(" Product: " + productDetails.getTitle() + ", Quantity: " + entry.getValue() + ";");
 			}
-			currentOrder = createOrder(orderDetails.toString());
+			double orderTotal = getTotal();
+			orderDetails.append(" Order Total is : " + orderTotal);
+			currentOrder = createOrder(orderDetails.toString(), orderTotal);
 			updateCartpreparedStatement
-					.append(" INSERT INTO orders (order_id, user_id, order_details, order_time) VALUES (" + "'"
-							+ currentOrder.getId() + "', " + "'1'" + ", '" + currentOrder.getOrder_details() + "', '"
-							+ currentOrder.getOrder_time() + "');");
+					.append(" INSERT INTO orders (order_id, user_id, order_details, order_time, order_total) VALUES ("
+							+ "'" + currentOrder.getId() + "', " + "'1'" + ", '" + currentOrder.getOrder_details()
+							+ "', '" + currentOrder.getOrder_time() + "'," + currentOrder.getOrder_total() + ");");
 			updateCartpreparedStatement.append(" END TRANSACTION;");
 			System.out.println("Statemet is " + updateCartpreparedStatement.toString());
-			System.out.println("Order Total is " + getTotal());
 			cassandraTemplate.getCqlOperations().execute(updateCartpreparedStatement.toString());
 		}
 		products.clear();
@@ -156,13 +157,14 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 		return price;
 	}
 
-	public Order createOrder(String orderDetails) {
+	public Order createOrder(String orderDetails, double orderTotal) {
 		Order order = new Order();
 		LocalDateTime currentTime = LocalDateTime.now();
 		order.setId(UUID.randomUUID().toString());
 		order.setUser_id(1);
 		order.setOrder_details(orderDetails);
 		order.setOrder_time(currentTime.toString());
+		order.setOrder_total(orderTotal);
 		return order;
 	}
 }

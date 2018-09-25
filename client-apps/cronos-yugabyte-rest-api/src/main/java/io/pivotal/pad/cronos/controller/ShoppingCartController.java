@@ -72,11 +72,13 @@ public class ShoppingCartController {
 			if (currentOrder != null) {
 				checkoutStatus.setOrderNumber(currentOrder.getId().toString());
 				checkoutStatus.setStatus(CheckoutStatus.SUCCESS);
+				checkoutStatus.setOrderDetails(currentOrder.getOrder_details());
 				System.out
 						.println("Order is : " + currentOrder.getId() + " Details: " + currentOrder.getOrder_details());
 			} else {
 				checkoutStatus.setOrderNumber("");
 				checkoutStatus.setStatus(CheckoutStatus.FAILURE);
+				checkoutStatus.setOrderDetails("Product is Out of Stock!");
 			}
 		} catch (NotEnoughProductsInStockException e) {
 			checkoutStatus.setOrderNumber("");

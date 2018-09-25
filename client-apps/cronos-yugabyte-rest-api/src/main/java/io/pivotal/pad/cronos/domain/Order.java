@@ -18,6 +18,9 @@ public class Order {
     
     @Column(value = "order_time")
     private String order_time;
+    
+    @Column(value = "order_total")
+    private Double order_total;
 
 	public String getId() {
 		return id;
@@ -51,7 +54,15 @@ public class Order {
 		this.order_time = order_time;
 	}
 	
-    @Override
+    public Double getOrder_total() {
+		return order_total;
+	}
+
+	public void setOrder_total(Double order_total) {
+		this.order_total = order_total;
+	}
+
+	@Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;

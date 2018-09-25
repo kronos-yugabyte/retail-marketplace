@@ -3,13 +3,12 @@ package io.pivotal.pad.cronos.domain;
 import org.springframework.data.cassandra.core.mapping.Column;
 import org.springframework.data.cassandra.core.mapping.PrimaryKey;
 import org.springframework.data.cassandra.core.mapping.Table;
-import org.springframework.hateoas.Link;
 
 @Table(value = "product_rankings")
-public class ProductRanking {
+public class ProductRanking{
 
 	@PrimaryKey
-	private ProductRankingKey id;
+	private ProductRankingKey asin;
 
 	@Column(value = "sales_rank")
 	private int salesRank;
@@ -36,7 +35,7 @@ public class ProductRanking {
 	}
 
 	public ProductRankingKey getId() {
-		return id;
+		return asin;
 	}
 
 	public String getTitle() {
@@ -64,7 +63,7 @@ public class ProductRanking {
 	}
 
 	public void setId(ProductRankingKey id) {
-		this.id = id;
+		this.asin = id;
 	}
 
 	public void setTitle(String title) {

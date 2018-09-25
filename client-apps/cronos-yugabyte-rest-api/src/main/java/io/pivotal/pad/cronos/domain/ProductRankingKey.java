@@ -15,21 +15,21 @@ public class ProductRankingKey implements Serializable {
 	private static final long serialVersionUID = -6646128061564873843L;
 
 	@PrimaryKeyColumn(name = "asin", ordinal = 0, type = PrimaryKeyType.PARTITIONED)
-	private String id;
+	private String asin;
 	
 	@PrimaryKeyColumn(name = "category", ordinal = 1, type = PrimaryKeyType.CLUSTERED)
 	private String category;
 
-	public String getId() {
-		return id;
+	public String getAsin() {
+		return asin;
 	}
 
 	public String getCategory() {
 		return category;
 	}
 
-	public void setId(String id) {
-		this.id = id;
+	public void setId(String asin) {
+		this.asin = asin;
 	}
 
 	public void setCategory(String category) {
@@ -40,8 +40,8 @@ public class ProductRankingKey implements Serializable {
 	  public int hashCode() {
 	    final int prime = 31;
 	    int result = 1;
-	    result = prime * result + ((id == null) ? 0 : id.hashCode());
-	    result = prime * result + ((id == null) ? 0 : id.hashCode());
+	    result = prime * result + ((asin == null) ? 0 : asin.hashCode());
+	    result = prime * result + ((asin == null) ? 0 : asin.hashCode());
 	    return result;
 	  }
 	  
@@ -54,11 +54,11 @@ public class ProductRankingKey implements Serializable {
 	    if (getClass() != obj.getClass())
 	      return false;
 	    ProductRankingKey other = (ProductRankingKey) obj;
-	    if (id == null) {
-	      if (other.id != null)
+	    if (asin == null) {
+	      if (other.asin != null)
 	        return false;
 	      else {
-	    	  if (!id.equals(other.id)) {
+	    	  if (!asin.equals(other.asin)) {
 	    		  return false;
 	    	  }
 	      }

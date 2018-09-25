@@ -57,7 +57,8 @@ CREATE TABLE cronos.orders (
     order_id text PRIMARY KEY,
     user_id text,
     order_details text,
-    order_time text
+    order_time text,
+    order_total double
 ) WITH default_time_to_live = 0
     AND transactions = {'enabled': 'true'};
 

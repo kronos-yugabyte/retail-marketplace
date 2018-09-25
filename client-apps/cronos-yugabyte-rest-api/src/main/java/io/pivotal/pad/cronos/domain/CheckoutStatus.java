@@ -7,7 +7,19 @@ public class CheckoutStatus {
 	public static final String FAILURE = "FAILURE";
 	
 	String status;
+
+	String orderNumber;
 	
+	String orderDetails;
+	
+	public String getOrderDetails() {
+		return orderDetails;
+	}
+
+	public void setOrderDetails(String orderDetails) {
+		this.orderDetails = orderDetails;
+	}
+
 	public String getStatus() {
 		return status;
 	}
@@ -24,5 +36,4 @@ public class CheckoutStatus {
 		this.orderNumber = orderNumber;
 	}
 
-	String orderNumber;
 }

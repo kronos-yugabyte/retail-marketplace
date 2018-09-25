@@ -1,5 +1,6 @@
 package io.pivotal.pad.cronos.service.impl;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,12 @@ public class ProductRankingServiceImpl implements ProductRankingService{
 	public Optional<ProductRanking> findProductRankingById(String asin) {
 		
 		return productRankingRepository.findProductRankingById(asin);
+	}
+
+	@Override
+	public List<ProductRanking> getProductsByCategory(String category) {
+		
+		return productRankingRepository.getProductsByCategory(category);
 	}
 
 }
