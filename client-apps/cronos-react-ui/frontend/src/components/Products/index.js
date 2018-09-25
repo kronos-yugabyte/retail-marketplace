@@ -47,7 +47,6 @@ class Products extends Component {
   render() {
     let stars = ["star_border", "star_border", "star_border", "star_border", "star_border"];
     const self = this;
-    debugger;
     return (
       <div className="content">
         <div className="products">
@@ -80,7 +79,6 @@ class Products extends Component {
                 if (product.avg_stars > 4) {
                   stars[4] = (product.avg_stars < 5) ? "star_half" : "star";
                 }
-                //debugger;
                 return (
                   <div className="item" key={product.id}>
                     <Link to={`/item/${product.id}`}>

@@ -19,10 +19,15 @@
     height: 52px;
     width: 200px;
     background-color: #ffffff;
-    border: none;
     border-radius: 26px;
-    font-size: 18px;
+    font-size: 18px !important;
     font-weight: 300;
     padding: 0 20px;
     margin-right: 10px;
+    border: none;
+}
+
+
+.right form .btn {
+    color: #ffffff;
 }

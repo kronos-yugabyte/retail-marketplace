@@ -9,6 +9,7 @@ import Home from '../Home';
 import { Navbar, Footer } from '../Main/components';
 import { Route, Switch, withRouter } from 'react-router-dom';
 import './index.css';
+import 'bootstrap/dist/css/bootstrap.css';
 
 export default class App extends Component {
   constructor(props) {
@@ -69,14 +70,13 @@ export default class App extends Component {
 
       fetch(url, {  
         method: 'GET',
-        mode: "no-cors",
         //body: requestData
       })
         .then(data => {
           if(data.ok) {
             self.setState({
               cart: {
-                data: {}[product.id] = 1,
+                data: {[product.id] : 1},
                 total: 1 //self.totalReducer(data)
               }
             });

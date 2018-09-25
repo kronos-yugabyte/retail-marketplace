@@ -71,7 +71,7 @@ public class DashboardRestConsumer {
 		String restURL = restUrlBase + "/shoppingCart";
 		ResponseEntity<String> rateResponse =
 		        restTemplate.exchange(restURL,
-		                    HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
+		                    HttpMethod.POST, null, new ParameterizedTypeReference<String>() {
 		            });
 		String getCartJsonResponse = rateResponse.getBody();
 		return getCartJsonResponse;

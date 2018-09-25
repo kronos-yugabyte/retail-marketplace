@@ -8,20 +8,20 @@
     height: 36px;
     line-height: 36px;
     min-width: 100px;
-    border-radius: 13px;
+    border-radius: 13px !important;
 }
 .btn-meduim {
     height: 42px;
     line-height: 42px;
     min-width: 120px;
-    border-radius: 21px;
+    border-radius: 21px !important;
 }
 .btn-large {
     height: 52px;
     line-height: 48px;
     min-width: 160px;
     padding: 0 30px !important;
-    border-radius: 26px;
+    border-radius: 26px !important;
     font-size: 18px;
 }
 .btn .icon {

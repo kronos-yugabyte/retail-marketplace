@@ -11,7 +11,6 @@ class ShowProduct extends Component {
   state = {product_id: "", product: {}}
 
   componentDidMount() {
-    //debugger;
     var new_product_id = this.props.match.params.id;
     this.fetchProductDetails(new_product_id)
   }

@@ -54,6 +54,8 @@ nav a {
   font-weight: 300;
   transition: 0.125s cubic-bezier(0.375, 0.885, 0.60, 1) all;
   position: relative;
+  font-size: inherit !important;
+
 }
 .nav-bar.nav-bar-scrolled li a {
   color: #8A949D;
@@ -139,6 +141,7 @@ nav a {
   padding: 0 10px 0 20px;
   transition: 0.125s;
   position: relative;
+  font-size: inherit !important;
 
   transition: 0.125s cubic-bezier(0.375, 0.885, 0.60, 1) all, 0.125s  0.125s cubic-bezier(0.375, 0.885, 0.60, 1) width;
   width: 100px;
@@ -190,11 +193,10 @@ nav a {
 
 .nav-cart a.nav-cart-active .nav-cart-count {
   transform: scale(1, 1);
-  transition1: 0.35s cubic-bezier(0.375, 0.885, 0.60, 1) all 1.35s;
   opacity: 1;
 }
 
-.nav-cart a.nav-cart-active:hover {
+.nav-bar .nav-cart a.nav-cart-active:hover {
   background: #2BB2AC;
   color: #FFFFFF;
   transition: 0.35s;
