@@ -52,11 +52,12 @@ class CartProducts extends Component {
         .then(product => this.setState({ product }));
   }
   render() {
+    console.warn(this.props.cart);
     return(
       <div className="cart-container">
       <div className="container">
         <h5>Items in cart</h5>
-        { this.state.product && <div className="items">
+        { this.state.product && !!this.props.cart.total && <div className="items">
           <div className="cart-item">
             <div className="product-image">
               <img src={this.state.product.imUrl} alt="product" />
@@ -69,14 +70,17 @@ class CartProducts extends Component {
               <h6>{this.state.product.price}</h6> x 1
             </div>
             <div className="actions">
-              <Button size="meduim">Remove</Button>
+              <Button onClick={() => this.props.removeItemFromCart(this.state.product.id)}  size="meduim">Remove</Button>
             </div>
             {/* {map(this.props.cart.date, (product) => {
               <h1>{product.name}</h1>
             })} */}
           </div>
         </div>}
-        { this.state.product && <div className="total">
+        { !this.props.cart.total &&
+          <h6>Cart is empty</h6>
+        }
+        { this.state.product && !!this.props.cart.total && <div className="total">
             <div className="details">
             </div>
 

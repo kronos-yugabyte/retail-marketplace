@@ -67,6 +67,23 @@ public class DashboardRestConsumer {
 		return addProductJsonResponse;
 	}
 
+	public String removeProductFromCart(String asin) {
+
+		String restURL = restUrlBase + "/shoppingCart/removeProduct";
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("asin", asin);
+		
+
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(params, null);
+
+		ResponseEntity<String> rateResponse =
+		        restTemplate.exchange(restURL,
+		                    HttpMethod.POST, request, new ParameterizedTypeReference<String>() {
+		            });
+		String addProductJsonResponse = rateResponse.getBody();
+		return addProductJsonResponse;
+	}
+
 	public String getCart() {
 		String restURL = restUrlBase + "/shoppingCart";
 		ResponseEntity<String> rateResponse =

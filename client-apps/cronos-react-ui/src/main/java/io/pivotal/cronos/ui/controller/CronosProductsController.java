@@ -32,6 +32,11 @@ public class CronosProductsController {
 		return dashboardRestConsumer.addProductToCart(asin);
 	}
 
+  @RequestMapping(method = RequestMethod.GET, value = "/cart/remove")
+	public @ResponseBody String removeProductFromCart(@RequestParam("asin") String asin) {
+		return dashboardRestConsumer.removeProductFromCart(asin);
+	}
+
   @RequestMapping(method = RequestMethod.GET, value = "/cart/get")
 	public @ResponseBody String getCart() {
 		return dashboardRestConsumer.getCart();

@@ -60,7 +60,6 @@ export default class App extends Component {
 
   addItemToCart = (product) => {
     if (product) {
-      console.warn(this.state);
       console.log("Added to Cart "+product.title);
       
       const self = this;
@@ -89,6 +88,47 @@ export default class App extends Component {
               cart: {
                 data: {...data , ...dataMerged},
                 total: self.totalReducer({...data , ...dataMerged})
+              }
+            });
+          }
+        })
+        .catch(error => {
+          console.warn('Request failed', error);
+
+        });
+    }
+  }
+
+  removeItemFromCart = (product) => {
+    if (product) {
+      console.log("Removed from Cart "+product.title);
+      
+      const self = this;
+      const url = '/cart/remove/?asin='+product.id;
+      //let requestData = new FormData();
+      // requestData.append( "json", JSON.stringify( {asin: product.id} ));
+
+      fetch(url, {  
+        method: 'GET',
+        //body: requestData
+      })
+        .then(data => {
+          if(data.ok) {
+            self.setState({
+              cart: {
+                data: {},
+                total: 0 //self.totalReducer(data)
+              }
+            });
+          } else {
+            const dataMerged = {};
+            const data = self.state.cart.data;
+            dataMerged[product.id] = data[product.id] ? data[product.id] + 1 : 1;
+            
+            self.setState({
+              cart: {
+                data: {},
+                total: 0
               }
             });
           }
@@ -130,7 +170,7 @@ export default class App extends Component {
           <Route path="/cart" 
             render={(props) => (
               <Cart
-                cart={this.state.cart} />
+                cart={this.state.cart} removeItemFromCart={this.removeItemFromCart}/>
             )} />
       
           <Route path="/business"
