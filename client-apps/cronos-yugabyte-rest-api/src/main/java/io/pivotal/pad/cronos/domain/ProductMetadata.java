@@ -30,6 +30,8 @@ public class ProductMetadata{
 	
 	String title;
 	
+	String description;
+	
 	@CassandraType(type = Name.LIST)
 	List<String> also_bought;
 	
@@ -83,6 +85,12 @@ public class ProductMetadata{
 	}
 	public void setTitle(String title) {
 		this.title = title;
+	}
+	public String getDescription() {
+		return description;
+	}
+	public void setDescription(String description) {
+		this.description = description;
 	}
 	public List<String> getAlso_bought() {
 		return also_bought;

@@ -33,6 +33,12 @@ CREATE TABLE cronos.product_rankings (
     asin text,
     category text,
     sales_rank int,
+    title text,
+    price double,
+    imurl text,
+    num_reviews int,
+    num_stars int,
+    avg_stars double,
     PRIMARY KEY (asin, category)
 ) WITH CLUSTERING ORDER BY (category ASC)
     AND default_time_to_live = 0

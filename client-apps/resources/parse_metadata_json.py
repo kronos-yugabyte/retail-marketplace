@@ -3,7 +3,7 @@ import sys
 import random, math
 
 def safe_encode(str):
-    return ('"' + str.replace('"', '\\"').replace(",",';').replace("\n"," ") + '"')
+    return ('"' + ' '.join((str.replace('"', '\\"').replace("\n"," ").strip().encode('ascii', 'ignore').decode("utf-8")).split()) + '"')
 
 def collection_to_str(items, start_sep, end_sep):
     if len(items) == 0:
@@ -83,8 +83,21 @@ def parse_and_write_metadata(product, f_products, f_rankings, f_inventory):
                 f_rankings.write(safe_encode(category))
                 f_rankings.write(",")
                 f_rankings.write(str(rank))
+                f_rankings.write(",")
+                if "title" in product:
+                    f_rankings.write(safe_encode(product["title"]))
+                f_rankings.write(",")
+                f_rankings.write(str(product.get("price", default_price)))
+                f_rankings.write(",")
+                if "imUrl" in product:
+                    f_rankings.write(safe_encode(product["imUrl"]))
+                f_rankings.write(",")
+                f_rankings.write(str(num_reviews))
+                f_rankings.write(",")
+                f_rankings.write(str(num_stars))
+                f_rankings.write(",")
+                f_rankings.write(str(avg_stars))
                 f_rankings.write("\n")
-
 
 # The input data file.
 if len(sys.argv) < 2:
@@ -120,4 +133,4 @@ with open(metadata_file) as f:
 # Close the various files.
 f_products.close()
 f_rankings.close()
-f_inventory.close(
+f_inventory.close()
