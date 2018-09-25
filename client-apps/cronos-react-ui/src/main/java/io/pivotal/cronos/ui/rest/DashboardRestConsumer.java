@@ -65,5 +65,15 @@ public class DashboardRestConsumer {
 		            });
 		String addProductJsonResponse = rateResponse.getBody();
 		return addProductJsonResponse;
+	}
+
+	public String getCart() {
+		String restURL = restUrlBase + "/shoppingCart";
+		ResponseEntity<String> rateResponse =
+		        restTemplate.exchange(restURL,
+		                    HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
+		            });
+		String getCartJsonResponse = rateResponse.getBody();
+		return getCartJsonResponse;
 	}	
 }
