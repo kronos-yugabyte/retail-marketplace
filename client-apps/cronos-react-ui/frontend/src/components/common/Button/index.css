@@ -2,7 +2,7 @@
     box-shadow: none;
     padding: 0 25px;
     text-transform: none;
-    font-weight: 300;
+    font-weight: 300 !important;
 }
 .btn-small {
     height: 36px;

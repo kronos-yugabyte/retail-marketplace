@@ -10,7 +10,8 @@ class CartProducts extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      product: {}
+      product: {},
+      isCompleted: false
     };
   }
 
@@ -56,7 +57,7 @@ class CartProducts extends Component {
     return(
       <div className="cart-container">
       <div className="container">
-        <h5>Items in cart</h5>
+        <h5>{ this.state.isCompleted ? "Thank you!" : "Items in cart"}</h5>
         { this.state.product && !!this.props.cart.total && <div className="items">
           <div className="cart-item">
             <div className="product-image">
@@ -70,7 +71,7 @@ class CartProducts extends Component {
               <h6>{this.state.product.price}</h6> x 1
             </div>
             <div className="actions">
-              <Button onClick={() => this.props.removeItemFromCart(this.state.product.id)}  size="meduim">Remove</Button>
+              <Button className="btn-cart-remove" onClick={() => this.props.removeItemFromCart(this.state.product.id)}  size="meduim">Remove</Button>
             </div>
             {/* {map(this.props.cart.date, (product) => {
               <h1>{product.name}</h1>
@@ -78,23 +79,29 @@ class CartProducts extends Component {
           </div>
         </div>}
         { !this.props.cart.total &&
-          <h6>Cart is empty</h6>
+          <h6>{ this.state.isCompleted ? <span>Your order <b>ybpvt-{Math.floor(Math.random()*900000) + 100000}</b> is recieved.</span> : "Cart is empty"}</h6>
         }
-        { this.state.product && !!this.props.cart.total && <div className="total">
-            <div className="details">
-            </div>
+        { this.state.product && !!this.props.cart.total && 
+            <div className="total">
+              <div className="details">
+              </div>
 
-            <div className="pricing">
-              Total:<br/>
-              Taxes:
+              <div className="pricing">
+                Total:<br/>
+                Taxes:
+              </div>
+              <div className="pricing">
+                <h6>{(this.state.product.price*1.1025).toFixed(2)}</h6>
+                <h6>{(this.state.product.price*0.1025).toFixed(2)}</h6>
+              </div>
+              <div className="actions">
+              <Button onClick={() => {
+                this.props.removeItemFromCart(this.state.product.id);
+                this.setState({ isCompleted: true })
+                }} size="meduim">Checkout</Button>
+              </div>
             </div>
-            <div className="pricing">
-              <h6>{(this.state.product.price*1.1025).toFixed(2)}</h6>
-              <h6>{(this.state.product.price*0.1025).toFixed(2)}</h6>
-            </div>
-            <div className="actions">&nbsp;
-            </div>
-        </div>}
+        }
       </div>
       </div>
     );
