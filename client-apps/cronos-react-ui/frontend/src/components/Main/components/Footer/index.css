@@ -1,5 +1,5 @@
 .footer {
-  height: 220px;
+  height: 180px;
   background-color: #fff;
   width: 100%;
   display: flex;
@@ -24,8 +24,13 @@
 }
 
 .footer .logo + p {
-  margin-top: 80px;
+  margin-top: 55px;
   margin-left: 40px;
+}
+
+
+.footer .logo {
+  transform: translateY(10px);
 }
 .footer h6 {
   margin-bottom: 30px;

@@ -15,12 +15,10 @@ const Footer = () => (
     <div className="footer-block2">
       <h6>Categories</h6>
       <ul>
-        <li><NavLink to="/scifi">{'Sci-fi & Fantasy'}</NavLink></li>
-        <li><NavLink to="/cookbooks">Cookbooks</NavLink></li>
-        <li><NavLink to="/art">{'Art & Design'}</NavLink></li>
-        <li><NavLink to="/business">Business</NavLink></li>
-        <li><NavLink to="/music">Music</NavLink></li>
-        <li><NavLink to="/classic">Classic</NavLink></li>
+        <li><NavLink to="/Books">Books</NavLink></li>
+        <li><NavLink to="/Music">Music</NavLink></li>
+        <li><NavLink to="/Beauty">Beauty</NavLink></li>
+        <li><NavLink to="/Electronics">Electronics</NavLink></li>
       </ul>
     </div>
     <div className="footer-block3">

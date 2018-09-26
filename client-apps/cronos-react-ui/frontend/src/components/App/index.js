@@ -63,26 +63,26 @@ export default class App extends Component {
       console.log("Added to Cart "+product.title);
       
       const self = this;
-      const url = '/cart/add/?asin='+product.id;
-      // let requestData = new FormData();
-      // requestData.append( "json", JSON.stringify( {asin: product.id} ));
+      const url = '/cart/add/?asin='+(product.id.asin || product.id);
+      let requestData = new FormData();
+      requestData.append( "json", JSON.stringify( {asin: product.id} ));
 
       fetch(url, {  
-        method: 'GET',
-        //body: requestData
+        method: 'POST',
+        body: requestData
       })
         .then(data => {
           if(data.ok) {
             self.setState({
               cart: {
-                data: {[product.id] : 1},
+                data: {[product.id.asin || product.id] : 1},
                 total: 1 //self.totalReducer(data)
               }
             });
           } else {
             const dataMerged = {};
             const data = self.state.cart.data;
-            dataMerged[product.id] = data[product.id] ? data[product.id] + 1 : 1;
+            dataMerged[product.id.asin || product.id] = data[product.id.asin || product.id] ? data[product.id.asin || product.id] + 1 : 1;
             
             self.setState({
               cart: {
@@ -105,12 +105,12 @@ export default class App extends Component {
       
       const self = this;
       const url = '/cart/remove/?asin='+product.id;
-      //let requestData = new FormData();
-      // requestData.append( "json", JSON.stringify( {asin: product.id} ));
+      let requestData = new FormData();
+      requestData.append( "json", JSON.stringify( {asin: product.id} ));
 
       fetch(url, {  
-        method: 'GET',
-        //body: requestData
+        method: 'POST',
+        body: requestData
       })
         .then(data => {
           if(data.ok) {
