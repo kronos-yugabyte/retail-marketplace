@@ -1,14 +1,15 @@
 //Dependencies
 import React, { Component } from 'react';
 import { Icon } from 'react-materialize';
+import _ from 'lodash';
 import { Link } from 'react-router-dom';
 import { Row, Col } from 'react-bootstrap';
-import Highlights from '../Main/components/Highlights';
+import { Button } from '../../components/common';
 //Internals
 import './index.css';
 
 class Products extends Component {
-  state = {current_query: "", category: undefined, products: []}
+  state = {current_query: "", category: undefined, products: [], isUpdating: true}
 
   componentDidMount() {
     this.setState({ category: this.props.category || null }, this.fetchProducts(this.props.category));
@@ -18,8 +19,14 @@ class Products extends Component {
     if (this.state.category !== nextProps.category && this.state.category !== undefined) this.setState({ category: nextProps.category, products: [] }, this.fetchProducts(nextProps.category));
   }
 
-  fetchProducts(nextCategory) {
+  shouldComponentUpdate(nextProps, nextState) {
+    return !_.isEqual(this.state.products, nextState.products);
+  }
+
+  fetchProducts(nextCategory, nextLimit, nextOffset) {
     let url, query = '';
+    const limit = this.props.limit || 12 || nextLimit;
+    const offset = this.props.offset || nextOffset || 0;
     if (nextCategory) {
       url = '/products/category?';
       query = 'name=' + nextCategory + '&';
@@ -27,13 +34,13 @@ class Products extends Component {
     else {
       url = '/products?';
     }
-    query += "limit=" + (this.props.limit || 10) + '&';
-    query += "offset=" + (this.props.offset || 0);
+    query += "limit=" + limit + '&';
+    query += "offset=" + offset;
     this.setState({ current_query: url+query })
     if (this.state.current_query !== url+query) {
       fetch(url+query)
         .then(res => res.json())
-        .then(products => this.setState({ products }));
+        .then(products => this.setState({ products, limit, offset, isUpdating: false }));
     }
   }
 
@@ -85,7 +92,7 @@ class Products extends Component {
                   stars[4] = (product.avg_stars < 5) ? "star_half" : "star";
                 }
                 return (
-                  <Col xl={3} lg={3} md={6} xs={12} key={product.id.asin || product.id}>
+                  <Col lg={3} md={6} xs={12} key={product.id.asin || product.id}>
                     <div className="item" >
                       <Link to={`/item/${product.id.asin || product.id}`}>
                         <div className="product-img" style={{backgroundImage: `url(${product.imUrl})`}}></div>
@@ -112,6 +119,21 @@ class Products extends Component {
                 )
             })}
           </Row>
+          {this.state.limit ===12 &&
+            <div className="pagination">
+            <Button onClick={() => {
+                  this.setState({ products: []});
+                  this.fetchProducts(this.state.category, this.state.limit, this.state.offset - this.state.limit)
+                }
+              } size="large" disabled={!Boolean(this.state.offset)}>Previous page</Button>
+
+              <Button onClick={() => {
+                  this.setState({ products: [], isUpdating: true});
+                  this.fetchProducts(this.state.category, this.state.limit, this.state.offset + this.state.limit)
+                }
+              } size="large" className="pull-right" disabled={(this.state.products.length < 12 && this.state.products.length !== 0) || (this.state.products.length === 0 && !this.state.isUpdating)}>Next page</Button>
+            </div>
+          }
         </div>
       </div>
     );

@@ -1,5 +1,4 @@
 // Dependencies
-import axios from 'axios';
 import React, { Component } from 'react';
 //Internals
 import './index.css';

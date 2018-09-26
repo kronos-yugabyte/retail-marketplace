@@ -2,8 +2,6 @@
 import React, { Component } from 'react';
 import { Button } from '../../components/common';
 import { Link } from 'react-router-dom';
-import PropTypes from 'prop-types';
-import map from 'lodash/map';
 //Internals
 import './index.css';
 
@@ -74,7 +72,7 @@ class CartProducts extends Component {
                 </div>
     
                 <div className="pricing">
-                  <h6>${product.price}</h6> x {this.props.cart.data[product.id]}
+                  <h6>${product.price.toFixed(2)}</h6> x {this.props.cart.data[product.id]}
                 </div>
                 <div className="actions">
                   <Button className="btn-cart-remove" onClick={() => this.props.removeItemFromCart(product)}  size="meduim">Remove</Button>
@@ -83,7 +81,7 @@ class CartProducts extends Component {
             ))}
         </div>}
         { !this.props.cart.total &&
-          <h6>{ this.state.isCompleted ? <span>Your order <b>#kmp-{this.state.result.orderNumber}</b> is recieved.</span> : "Cart is empty"}</h6>
+          <h6>{ this.state.isCompleted ? <span>Your order <b>#kmp-{this.state.result.orderNumber}</b> is received.</span> : "Cart is empty"}</h6>
         }
         { Boolean(this.state.isCompleted) && this.state.result &&
           <div className="order-details">{this.state.result.orderDetails}</div>
@@ -98,14 +96,14 @@ class CartProducts extends Component {
                 Taxes:
               </div>
               <div className="pricing">
-                <h6>${(totalCost*1.1025).toFixed(2)}</h6>
+                <h6>${totalCost.toFixed(2)}</h6>
                 <h6>$0.00</h6>
               </div>
               <div className="actions">
               <Button onClick={() => {
                 this.submitCheckout();
                 this.setState({ isCompleted: true })
-                }} size="meduim" disabled={Boolean(this.props.cart.total)}>Checkout</Button>
+                }} size="meduim" disabled={!Boolean(this.props.cart.total)}>Checkout</Button>
               </div>
             </div>
         }

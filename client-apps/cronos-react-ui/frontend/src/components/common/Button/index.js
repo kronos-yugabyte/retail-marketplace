@@ -7,7 +7,7 @@ import './index.css';
 class Button extends PureComponent {
   render() {
     return (
-      <button onClick={this.props.onClick} className={"btn btn-"+this.props.size+" btn-"+this.props.color+" "+this.props.className}>
+      <button disabled={this.props.disabled} onClick={this.props.onClick} className={"btn btn-"+this.props.size+" btn-"+this.props.color+" "+this.props.className}>
         {this.props.icon && <Icon color={this.props.iconColor} icon={this.props.icon}/>}
         {this.props.children}
       </button>

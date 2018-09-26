@@ -1,8 +1,6 @@
 //Dependencies
 import React, { Component } from 'react';
-import find from 'lodash/find';
 import { Button } from 'react-materialize';
-import { Link } from 'react-router-dom';
 import { Icon } from 'react-materialize';
 //Internals
 import './index.css';
@@ -75,7 +73,7 @@ class ShowProduct extends Component {
               <div id="product-price">
                 {currentProduct.num_stars} stars from {currentProduct.num_reviews} reviews
               </div>
-              <div id="product-price">${currentProduct.price}</div>
+              <div id="product-price">${currentProduct.price.toFixed(2)}</div>
               <div className="add-to-cart">
                 <Button color="primary" onClick={() => this.props.addItemToCart(currentProduct)} className="mdc-button mdc-button--raised">
                   Add to cart

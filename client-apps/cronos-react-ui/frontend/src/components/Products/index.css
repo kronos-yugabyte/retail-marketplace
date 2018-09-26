@@ -137,3 +137,16 @@ i:hover {
   font-size: 26px;
   transition: 0.5s;
 }
+
+.pagination {
+  display: flex !important;
+  justify-content: center;
+  transform: translateY(-27px);
+}
+.pagination button {
+  width: 170px !important;
+  padding: 0 !important;
+}
+.pagination button:last-child {
+  margin-left: 20px;
+}

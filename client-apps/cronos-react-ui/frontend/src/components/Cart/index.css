@@ -140,5 +140,6 @@ img {
 .order-details {
   font-weight: 300;
   margin-top: 20px;
-  opacity: 0.5;
+  font-size: 16.5;
+  opacity: 0.7;
 }

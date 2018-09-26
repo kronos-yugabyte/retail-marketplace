@@ -7,7 +7,7 @@ import ShowProduct from '../ShowProduct';
 import Products from '../Products';
 import Home from '../Home';
 import { Navbar, Footer, Subscribe } from '../Main/components';
-import { Route, Switch, withRouter } from 'react-router-dom';
+import { Route, Switch } from 'react-router-dom';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.css';
 
@@ -50,7 +50,7 @@ export default class App extends Component {
           scrolled: false
         });
       }
-    });//ms
+    });
   }
 
   fetchCart = () => {

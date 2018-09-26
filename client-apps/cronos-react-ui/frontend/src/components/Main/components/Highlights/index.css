@@ -21,12 +21,13 @@
 }
 
 .highlights-title a {
-  color: #79848A70;
+  color: #2BB2AC;
+  transition: 0.35s;
 }
 
 
 .highlights-title a:hover {
-  color: #2BB2AC;
+  color: #79848A70;
 }
 
 .links-highlights {
