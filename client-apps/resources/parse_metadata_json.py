@@ -3,7 +3,8 @@ import sys
 import random, math
 
 def safe_encode(str):
-    return ('"' + ' '.join((str.replace('"', '\\"').replace("\n"," ").strip().encode('ascii', 'ignore').decode("utf-8")).split()) + '"')
+    str1 = str.replace('\\', "\\\\")
+    return ('"' + str1.replace('"', '\\"').replace("\n"," ").strip().decode('utf-8', 'ignore') + '"')
 
 def collection_to_str(items, start_sep, end_sep):
     if len(items) == 0:
