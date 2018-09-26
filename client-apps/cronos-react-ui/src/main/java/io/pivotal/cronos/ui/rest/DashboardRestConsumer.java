@@ -107,5 +107,38 @@ public class DashboardRestConsumer {
 		            });
 		String getCartJsonResponse = rateResponse.getBody();
 		return getCartJsonResponse;
+	}
+
+	public String checkout() {
+
+		String restURL = restUrlBase + "/shoppingCart/checkout";
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("userId", "1");
+		
+
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(params, null);
+
+		ResponseEntity<String> rateResponse =
+		        restTemplate.exchange(restURL,
+		                    HttpMethod.POST, request, new ParameterizedTypeReference<String>() {
+		            });
+		String addProductJsonResponse = rateResponse.getBody();
+		return addProductJsonResponse;
+	}
+
+	public String showCart() {
+		String restURL = restUrlBase + "/shoppingCart";
+		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
+		params.add("userId", "1");
+		
+
+		HttpEntity<MultiValueMap<String, String>> request = new HttpEntity<MultiValueMap<String, String>>(params, null);
+
+		ResponseEntity<String> rateResponse =
+		        restTemplate.exchange(restURL,
+		                    HttpMethod.POST, request, new ParameterizedTypeReference<String>() {
+		            });
+		String addProductJsonResponse = rateResponse.getBody();
+		return addProductJsonResponse;
 	}	
 }
