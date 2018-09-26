@@ -148,6 +148,7 @@ nav a {
   transition: 0.125s;
   position: relative;
   font-size: inherit !important;
+  white-space: nowrap;
 
   transition: 0.125s cubic-bezier(0.375, 0.885, 0.60, 1) all, 0.125s  0.125s cubic-bezier(0.375, 0.885, 0.60, 1) width;
   width: 100px;
@@ -160,15 +161,17 @@ nav a {
 
 .nav-bar .nav-cart a.nav-cart-active {
   background-color: #ffffff22;
-  width: 122px;
-  transition: 0.35s cubic-bezier(0.375, 0.885, 0.60, 1) all, 0.35s cubic-bezier(0.375, 0.885, 0.60, 1) width;
+  min-width: 122px;
+  width: auto;
+  transition: 0.35s cubic-bezier(0.375, 0.885, 0.60, 1) all;
 }
 
 
 .nav-bar.nav-bar-scrolled .nav-cart a.nav-cart-active {
   background-color: #F7F7F7;
-  width: 122px;
-  transition: 0.35s cubic-bezier(0.375, 0.885, 0.60, 1) all, 0.35s cubic-bezier(0.375, 0.885, 0.60, 1) width;
+  min-width: 122px;
+  width: auto;
+  transition: 0.35s cubic-bezier(0.375, 0.885, 0.60, 1) all;
 }
 
 .nav-cart a .icon {
@@ -178,7 +181,6 @@ nav a {
 
 .nav-cart a .nav-cart-count {
   background-color: #2BB2AC;
-  display: inline-block;
   color: #FFFFFF;
   border-radius: 11px;
   margin-left: 10px;
@@ -188,13 +190,37 @@ nav a {
   vertical-align: middle;
   transform: scale(0.01, 0.01);
   opacity: 0;
-  top: 10px;
+  margin-top: 9px;
   line-height: 17px;
   height: 22px;
-  width: 22px;
-  position: absolute;
+  min-width: 22px;
+  margin-left: 10px;
+  float: right;
   transition: 0.125s cubic-bezier(0.375, 0.885, 0.60, 1) all;
-  transition-delay: 2.35s;
+}
+
+.nav-cart a .nav-cart-count.nav-cart-count-error {
+  background-color: #E53838;
+  transition: 0.35s cubic-bezier(0.375, 0.885, 0.60, 1) all;
+  animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
 }
 
 .nav-cart a.nav-cart-active .nav-cart-count {
@@ -206,11 +232,4 @@ nav a {
   background: #2BB2AC;
   color: #FFFFFF;
   transition: 0.35s;
-}
-
-
-
-.nav-cart-count:hover {
-  background-color: #f75821;
-  transition: 0.5s;
 }

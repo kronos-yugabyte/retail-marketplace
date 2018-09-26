@@ -23,8 +23,13 @@ export default class App extends Component {
       index: 0,
     };
   }
+
   componentWillUnmount() {
     window.removeEventListener('scroll');
+  }
+
+  componentDidMount() {
+    this.fetchCart();
   }
 
   componentWillMount() {
@@ -48,7 +53,27 @@ export default class App extends Component {
     });//ms
   }
 
-  totalReducer(data) {
+  fetchCart = () => {
+    const self = this;
+    var url = '/cart/get';
+    fetch(url, {
+      method: "POST",
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      }
+    })
+      .then(res => res.json())
+      .then(cart => this.setState({
+        cart: {
+          data: cart,
+          total: self.totalReducer(cart),
+          error: false
+        }
+      }));
+  }
+
+  totalReducer = (data) => {
     let sum = 0;
     for( var el in data ) {
       if( data.hasOwnProperty( el ) ) {
@@ -63,36 +88,35 @@ export default class App extends Component {
       console.log("Added to Cart "+product.title);
       
       const self = this;
-      const url = '/cart/add/?asin='+(product.id.asin || product.id);
+      const url = '/cart/add?asin='+(product.id.asin || product.id);
       let requestData = new FormData();
       requestData.append( "json", JSON.stringify( {asin: product.id} ));
 
       fetch(url, {  
         method: 'POST',
-        body: requestData
+        body: requestData,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
       })
+        .then(res => res.json())
         .then(data => {
-          if(data.ok) {
             self.setState({
               cart: {
-                data: {[product.id.asin || product.id] : 1},
-                total: 1 //self.totalReducer(data)
+                data: data,
+                total: self.totalReducer(data)
               }
             });
-          } else {
-            const dataMerged = {};
-            const data = self.state.cart.data;
-            dataMerged[product.id.asin || product.id] = data[product.id.asin || product.id] ? data[product.id.asin || product.id] + 1 : 1;
-            
-            self.setState({
-              cart: {
-                data: {...data , ...dataMerged},
-                total: self.totalReducer({...data , ...dataMerged})
-              }
-            });
-          }
         })
         .catch(error => {
+          this.setState({
+            cart: { ...this.state.cart, error: true }
+          });
+    
+          setTimeout(() => this.setState({
+            cart: { ...this.state.cart, error: false }
+          }), 2500);
           console.warn('Request failed', error);
 
         });
@@ -110,50 +134,37 @@ export default class App extends Component {
 
       fetch(url, {  
         method: 'POST',
-        body: requestData
+        body: requestData,
+        headers: {
+          'Accept': 'application/json',
+          'Content-Type': 'application/json'
+        }
       })
+        .then(res => res.json())
         .then(data => {
-          if(data.ok) {
-            self.setState({
-              cart: {
-                data: {},
-                total: 0 //self.totalReducer(data)
-              }
-            });
-          } else {
-            const dataMerged = {};
-            const data = self.state.cart.data;
-            dataMerged[product.id] = data[product.id] ? data[product.id] + 1 : 1;
+            // const dataMerged = {};
+            // const data = self.state.cart.data;
+            // dataMerged[product.id.asin || product.id] = data[product.id.asin || product.id] ? data[product.id.asin || product.id] + 1 : 1;
             
             self.setState({
               cart: {
-                data: {},
-                total: 0
+                data: data,
+                total: self.totalReducer(data)
               }
             });
-          }
         })
         .catch(error => {
+          this.setState({
+            cart: { ...this.state.cart, error: true }
+          });
+    
+          setTimeout(() => this.setState({
+            cart: { ...this.state.cart, error: false }
+          }), 2500);
           console.warn('Request failed', error);
-
         });
     }
   }
-
-  // setSortName(query) {
-  //   switch (query) {
-  //     case "num_stars":
-  //       return "Books with the Highest Rating";
-  //     case "num_reviews":
-  //       return "Books with the Most Reviews";
-  //     case "num_buys":
-  //       return "Best Selling Books";
-  //     case "num_views":
-  //       return "Books with the Most Pageviews";
-  //     default:
-  //       return "";
-  //   }
-  // }
 
   render() {
     return(
@@ -170,28 +181,32 @@ export default class App extends Component {
           <Route path="/cart" 
             render={(props) => (
               <Cart
-                cart={this.state.cart} removeItemFromCart={this.removeItemFromCart}/>
+                cart={this.state.cart} fetchCart={this.fetchCart} removeItemFromCart={this.removeItemFromCart}/>
             )} />
       
           <Route path="/music"
             render={(props) => (
               <Products
-                category="Music" />
+                category="Music"
+                addItemToCart={this.addItemToCart} />
             )} />
           <Route path="/books"
             render={(props) => (
               <Products
-                category={"Books"} />
+                category={"Books"}
+                addItemToCart={this.addItemToCart} />
             )} />
           <Route path="/beauty"
             render={(props) => (
               <Products
-                category={"Beauty"} />
+                category={"Beauty"}
+                addItemToCart={this.addItemToCart} />
             )} />
           <Route path="/electronics"
             render={(props) => (
               <Products
-                category={"Electronics"} />
+                category={"Electronics"}
+                addItemToCart={this.addItemToCart} />
             )} />
       
           <Route path="/sort/:query"

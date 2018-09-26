@@ -8,14 +8,14 @@ import Highlights from '../Main/components/Highlights';
 import './index.css';
 
 class Products extends Component {
-  state = {current_query: "", category: null, products: []}
+  state = {current_query: "", category: undefined, products: []}
 
   componentDidMount() {
     this.setState({ category: this.props.category || null }, this.fetchProducts(this.props.category));
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.state.category !== nextProps.category) this.setState({ category: nextProps.category, products: [] }, this.fetchProducts(nextProps.category));
+    if (this.state.category !== nextProps.category && this.state.category !== undefined) this.setState({ category: nextProps.category, products: [] }, this.fetchProducts(nextProps.category));
   }
 
   fetchProducts(nextCategory) {

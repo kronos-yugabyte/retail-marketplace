@@ -33,8 +33,6 @@ class ShowProduct extends Component {
     this.fetchProductDetails(new_product_id)
     const currentProduct = this.state.product;
     const relatedProducts = currentProduct.relatedProducts;
-    console.log(currentProduct);
-    console.log(this.props.addItemToCart);
     if (!currentProduct) {
       return ("");      
     }

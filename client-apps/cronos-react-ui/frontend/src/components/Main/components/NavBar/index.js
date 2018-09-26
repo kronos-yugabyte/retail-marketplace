@@ -53,8 +53,8 @@ class Navbar extends Component {
       </div>
       <div className='nav-cart'>
         <NavLink className={`${this.props.cart.total ? 'nav-cart-active' : '' }`} to="/cart">
+          {this.props.cart.total > 0 && <span className={`nav-cart-count ${this.props.cart.error ? "nav-cart-count-error": ""}`}>{this.props.cart.total}</span>}
           <Icon icon="cart" color={this.props.scrolled || notIndex ? '#000000' : '#ffffff' }/>Cart
-          {this.props.cart.total > 0 && <span className="nav-cart-count">{this.props.cart.total}</span>}
         </NavLink>
       </div>
     </nav>

@@ -38,7 +38,7 @@ public class CronosProductsController {
 		return dashboardRestConsumer.addProductToCart(asin);
 	}
   
-  @PostMapping("/cart")
+  @PostMapping("/cart/get")
 	public @ResponseBody String showCart() {
 		return dashboardRestConsumer.showCart();
 	}
@@ -53,7 +53,7 @@ public class CronosProductsController {
 		return dashboardRestConsumer.removeProductFromCart(asin);
 	}
 
-  @RequestMapping(method = RequestMethod.POST, value = "/cart/get")
+  @RequestMapping(method = RequestMethod.POST, value = "/cart/getCart")
 	public @ResponseBody String getCart() {
 		return dashboardRestConsumer.getCart();
 	}
