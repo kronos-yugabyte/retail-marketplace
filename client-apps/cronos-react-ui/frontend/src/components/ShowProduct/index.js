@@ -26,7 +26,7 @@ class ShowProduct extends Component {
         .then(res => res.json())
         .then(product => {
           this.setState({ product });
-          this.fetchProductAlsoBought(product.also_bought.slice(0,4));
+          if (product.also_bought) this.fetchProductAlsoBought(product.also_bought.slice(0,4));
         });
     }
   }
@@ -113,6 +113,7 @@ class ShowProduct extends Component {
             </div>}
           </div>
         </div>
+        {Boolean(this.state.productAlsoBought.length) && 
         <div className="content content-white">
           <div className="container">
           <div className="products">
@@ -122,7 +123,7 @@ class ShowProduct extends Component {
             </div>
           <div className="items">
               {
-                Boolean(this.state.productAlsoBought) && this.state.productAlsoBought.map(product => {
+                this.state.productAlsoBought.map(product => {
                   if (product.avg_stars > 0) {
                     stars[0] = (product.avg_stars < 1) ? "star_half" : "star";
                   }
@@ -169,7 +170,7 @@ class ShowProduct extends Component {
             </div>
             </div>
           </div>
-        </div>
+        </div>}
       </div>
     );
   }
