@@ -20,10 +20,7 @@
 .products-title {
   font-size: 18px;
   font-weight: 400;
-  font-weight: lighter;
   color: #5F6D74;
-  text-transform: uppercase;
-  text-align: center;
 }
 
 .item {
@@ -87,10 +84,10 @@ img {
 }
 
 .product-description {
-  font-size: 1em;
-  font-family: 'Lato', sans-serif;
-  color: grey;
-  font-weight: lighter;
+  font-size: 15px;
+  color: #5F6D74;
+  font-weight: 300;
+  line-height: 24px;
   margin: 0;
 }
 

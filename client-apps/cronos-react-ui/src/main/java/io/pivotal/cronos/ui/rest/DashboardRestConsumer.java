@@ -15,6 +15,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.util.*;
+
 @Component
 public class DashboardRestConsumer {
 
@@ -26,7 +28,7 @@ public class DashboardRestConsumer {
 
 	public String getHomePageProducts(int limit, int offset) {
 
-		String restURL = restUrlBase + "/productmetadata/search/products?limit=" + limit + "&offset=" + offset;
+		String restURL = restUrlBase + "productmetadata/search/products?limit=" + limit + "&offset=" + offset;
 		ResponseEntity<String> rateResponse =
 		        restTemplate.exchange(restURL,
 		                    HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
@@ -40,8 +42,9 @@ public class DashboardRestConsumer {
 	}
 
 	public String getProductsByCategory(String name, int limit, int offset) {
-
-		String restURL = restUrlBase + "/productRankings/search/category?name=" + name+ "&limit=" + limit + "&offset=" + offset;
+		String encodedName = name.replace(" ","%20").replace("&","%26").replace(",","%2C");
+		String restURL = restUrlBase + "productRankings/search/category?name=" + encodedName+ "&limit=" + limit + "&offset=" + offset;
+		System.out.println(restURL);
 		ResponseEntity<String> rateResponse =
 		        restTemplate.exchange(restURL,
 		                    HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
@@ -56,7 +59,7 @@ public class DashboardRestConsumer {
 
 	public String getProductDetails(String asin) {
 
-		String restURL = restUrlBase + "/productmetadata/" + asin;
+		String restURL = restUrlBase + "productmetadata/" + asin;
 		ResponseEntity<String> rateResponse =
 		        restTemplate.exchange(restURL,
 		                    HttpMethod.GET, null, new ParameterizedTypeReference<String>() {
@@ -67,7 +70,7 @@ public class DashboardRestConsumer {
 
 	public String addProductToCart(String asin) {
 
-		String restURL = restUrlBase + "/shoppingCart/addProduct";
+		String restURL = restUrlBase + "shoppingCart/addProduct";
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("asin", asin);
 		
@@ -84,7 +87,7 @@ public class DashboardRestConsumer {
 
 	public String removeProductFromCart(String asin) {
 
-		String restURL = restUrlBase + "/shoppingCart/removeProduct";
+		String restURL = restUrlBase + "shoppingCart/removeProduct";
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("asin", asin);
 		
@@ -100,7 +103,7 @@ public class DashboardRestConsumer {
 	}
 
 	public String getCart() {
-		String restURL = restUrlBase + "/shoppingCart";
+		String restURL = restUrlBase + "shoppingCart";
 		ResponseEntity<String> rateResponse =
 		        restTemplate.exchange(restURL,
 		                    HttpMethod.POST, null, new ParameterizedTypeReference<String>() {
@@ -111,7 +114,7 @@ public class DashboardRestConsumer {
 
 	public String checkout() {
 
-		String restURL = restUrlBase + "/shoppingCart/checkout";
+		String restURL = restUrlBase + "shoppingCart/checkout";
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("userId", "1");
 		
@@ -127,7 +130,7 @@ public class DashboardRestConsumer {
 	}
 
 	public String showCart() {
-		String restURL = restUrlBase + "/shoppingCart";
+		String restURL = restUrlBase + "shoppingCart";
 		MultiValueMap<String, String> params = new LinkedMultiValueMap<String, String>();
 		params.add("userId", "1");
 		

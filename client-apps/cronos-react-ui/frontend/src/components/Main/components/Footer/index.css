@@ -1,5 +1,5 @@
 .footer {
-  height: 180px;
+  height: 220px;
   background-color: #fff;
   width: 100%;
   display: flex;
@@ -10,6 +10,9 @@
 .footer > div {
   align-self: flex-start;
   padding: 30px 35px;
+}
+.footer-block1 div {
+
 }
 .footer-block1 {
   flex-grow: 0;
@@ -23,9 +26,12 @@
   flex-grow: 3;
 }
 
-.footer .logo + p {
-  margin-top: 55px;
-  margin-left: 40px;
+.footer-block1 div:not(.logo) {
+  margin-top: 32px;
+  margin-bottom: 33px;
+}
+.footer-block1 p, .footer-block1 div:not(.logo){
+  margin-left: 23px;
 }
 
 
@@ -41,10 +47,11 @@
 .footer ul li a {
   color: #8A949D;
 }
-.footer ul li:nth-child(odd) {
-  min-width: 200px;
+.footer ul li:nth-child(nth-child(3)) {
   clear: left;
 }
-.footer ul li:nth-child(even) {
+.footer ul li {
   margin-bottom: 5px;
+  width: 200px;
+  display: block;
 }

@@ -184,31 +184,37 @@ export default class App extends Component {
                 cart={this.state.cart} fetchCart={this.fetchCart} removeItemFromCart={this.removeItemFromCart}/>
             )} />
       
-          <Route path="/music"
+          <Route path="/Music"
             render={(props) => (
               <Products
                 category="Music"
                 addItemToCart={this.addItemToCart} />
             )} />
-          <Route path="/books"
+          <Route path="/Books"
             render={(props) => (
               <Products
                 category={"Books"}
                 addItemToCart={this.addItemToCart} />
             )} />
-          <Route path="/beauty"
+          <Route path="/Beauty"
             render={(props) => (
               <Products
                 category={"Beauty"}
                 addItemToCart={this.addItemToCart} />
             )} />
-          <Route path="/electronics"
+          <Route path="/Electronics"
             render={(props) => (
               <Products
                 category={"Electronics"}
                 addItemToCart={this.addItemToCart} />
             )} />
-      
+          <Route exact path="/:category"
+            render={(props) => (
+              <Products
+                {...props}
+                addItemToCart={this.addItemToCart} />
+            )} />
+    
           <Route path="/sort/:query"
             render={(props) => (
               <Products

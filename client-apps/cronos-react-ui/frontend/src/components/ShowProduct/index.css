@@ -1,30 +1,63 @@
 .show-product {
-  width: 100vw;
-  padding: 20px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-top: 1px solid black;
+  background-color: #F7F7F7;
 }
 
-.item-wrapper {
-  background-color: white;
-  width: 50em;
-  justify-content: center;
-  align-items: center;
-  font-family: serif;
+.show-product .container{
+  padding: 20px 0;
+}
+
+.item-wrapper .row > div{
+  display: flex;
+  flex-direction: row;
 }
 
 .item-image {
   width: 100%;
   align-items: center;
   justify-content: center;
+  width: 50%;
+  text-align: center;
+}
+
+.item-image .product-image {
+  border-radius: 7px;
+  box-shadow: 4px 4px 20px rgba(0,0,0,0.1);
+  padding: 0 !important;
+  margin: 20px;
+  max-width: 350px;
+  height: auto;
+  margin: 20px auto;
+}
+
+.item-details .add-to-cart button, .item-details .add-to-cart button:hover, .item-details .add-to-cart button:focus {
+  background-color: #26a69a;
+  border: none;
+  width: 185px;
+}
+
+.item-details .add-to-cart button:hover, .item-details .add-to-cart button:focus {
+  background-color: #2bbbad;
+  color: #333;
+}
+
+.item-details .add-to-cart button .add-icon {
+  font-size: 28px;
+  vertical-align: middle;
+  color: #067B77;
+  margin-right: 5px;
+}
+
+.item-details .add-to-cart {
+  float: right;
+}
+
+.item-details {
+  width: 50%;
 }
 
 .similar-products {
   height: 40em;
   overflow: scroll;
-  font-family: 'Lato', sans-serif;
   margin: 0 3em;
   background-color: white;
 }
@@ -32,7 +65,6 @@
 .similar-product {
   height: 30em;
   width: 20em;
-  font-family: serif;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -48,23 +80,17 @@
 #product-name {
   padding: 1em 0 0;
   font-size: 1.5em;
-  font-family: 'Lato', sans-serif;
   margin: .5em 0;
 }
 
 .product-info h2 {
 }
 
-#product-description {
-  font-size: 14px;
-  font-family: serif;
-  color: #888;
+.item-details .product-description {
   font-weight: lighter;
   margin: 0;
-}
-
-#product-price {
-  font-size: 1em;
+  clear: right;
+  padding-top: 20px;
 }
 
 .show-product .product-image {
@@ -89,9 +115,16 @@
   padding: 20px 0;
 }
 
-.item-name #product-price {
-  font-size: 20px;
-  color: grey;
+.item-name .product-price {
+  margin-top: 15px;
+  font-size: 30px;
+  font-weight: 300;
+  color: #5F6D74;
+}
+.item-name .product-review {
+  color: #5F6D7499;
+  font-size: 13px;
+  font-weight: 300;
 }
 
 .stars {

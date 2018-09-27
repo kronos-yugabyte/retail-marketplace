@@ -1,6 +1,10 @@
-.content {
+.content-white {
   background-color: #FFFFFF;
+  padding-top: 25px;
 }
 
-.header {
+.content-white .items {
+  justify-content: left;
+  align-items: left;
+
 }

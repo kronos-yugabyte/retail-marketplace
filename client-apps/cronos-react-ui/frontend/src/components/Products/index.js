@@ -12,15 +12,25 @@ class Products extends Component {
   state = {current_query: "", category: undefined, products: [], isUpdating: true}
 
   componentDidMount() {
-    this.setState({ category: this.props.category || null }, this.fetchProducts(this.props.category));
+    const category = this.props.category || this.props.match.params.category;
+    this.setState({ category: this.linkEncode(category) || null }, this.fetchProducts(this.linkEncode(category)));
   }
 
   componentWillReceiveProps(nextProps) {
-    if (this.state.category !== nextProps.category && this.state.category !== undefined) this.setState({ category: nextProps.category, products: [] }, this.fetchProducts(nextProps.category));
+    const category = nextProps.category || nextProps.match.params.category;
+    if (this.state.category !== this.linkEncode(category) && this.state.category !== undefined) this.setState({ category: this.linkEncode(category), products: [] }, this.fetchProducts(this.linkEncode(category)));
   }
 
   shouldComponentUpdate(nextProps, nextState) {
     return !_.isEqual(this.state.products, nextState.products);
+  }
+
+  linkEncode = (name) => {
+    return name.replace(' ','%20').replace(/&/g, '%26').replace(',', '%2C');
+  }
+
+  linkDecode = (name) => {
+    return name.replace('%20',' ').replace('%26', '&').replace('%2C', ',');
   }
 
   fetchProducts(nextCategory, nextLimit, nextOffset) {
@@ -62,15 +72,16 @@ class Products extends Component {
   render() {
     let stars = ["star_border", "star_border", "star_border", "star_border", "star_border"];
     const self = this;
+    const category = this.props.category || this.props.match.params.category;
     return (
       <div className={ "container " + (this.props.isInline ? '' : "content")}>
         <div className="products">
         <div className="products-title">
-          <h1 className="highlights-title">{this.props.name || this.props.category || "Our bestsellers"}</h1>
+          <h1 className="highlights-title">{this.props.name || this.linkDecode(category) || "Our bestsellers"}</h1>
         </div>
 
           <Row className="items">
-            {this.state.products.sort((a, b)=>{
+            {Boolean(this.state.products.length) && this.state.products.sort((a, b)=>{
               if(self.props.sort) {
                 return a[self.props.sort] > b[self.props.sort];
               }
@@ -119,7 +130,7 @@ class Products extends Component {
                 )
             })}
           </Row>
-          {this.state.limit ===12 &&
+          {Boolean(this.state.products.length) && this.state.limit === 12 &&
             <div className="pagination">
             <Button onClick={() => {
                   this.setState({ products: []});
