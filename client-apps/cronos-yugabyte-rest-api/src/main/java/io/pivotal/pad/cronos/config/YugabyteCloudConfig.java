@@ -12,7 +12,9 @@ import org.springframework.data.cassandra.config.SchemaAction;
 import org.springframework.data.cassandra.core.CassandraTemplate;
 import org.springframework.data.cassandra.repository.config.EnableCassandraRepositories;
 
+import com.datastax.driver.core.AuthProvider;
 import com.datastax.driver.core.HostDistance;
+import com.datastax.driver.core.PlainTextAuthProvider;
 import com.datastax.driver.core.PoolingOptions;
 import com.datastax.driver.core.Session;
 
@@ -33,6 +35,14 @@ class CassandraCloudConfig {
 
 		@Value("${cronos.yugabyte.port:9042}")
 		private int cassandraPort;
+		
+		@Value("${cronos.yugabyte.username:cassandra}")
+		private String cassandraUsername;
+
+		
+		@Value("${cronos.yugabyte.password:cassandra}")
+		private String cassandraPassword;
+
 
 		@Override
 		public String getKeyspaceName() {
@@ -48,6 +58,11 @@ class CassandraCloudConfig {
 		@Override
 		public int getPort() {
 			return cassandraPort;
+		}
+		
+		@Override
+		protected AuthProvider getAuthProvider() {
+			return new PlainTextAuthProvider(cassandraUsername, cassandraPassword);
 		}
 //
 //		@Bean

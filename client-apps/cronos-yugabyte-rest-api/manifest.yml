@@ -1,5 +1,5 @@
 ---
 applications:
-- name: cronos-yugabyte-api-dev
+- name: kronos-yugabyte-api-dev
   random-route: false
   path: target/cronos-yugabyte-rest-api-0.0.1-SNAPSHOT.jar
