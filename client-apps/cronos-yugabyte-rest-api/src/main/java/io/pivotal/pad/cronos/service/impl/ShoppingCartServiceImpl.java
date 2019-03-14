@@ -47,7 +47,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
 //    private CqlOperations cqlTemplate;
 
 //	private Map<ProductMetadata, Integer> products = new HashMap<>();
-	private Map<String, Integer> products = new HashMap<>();
+	private static Map<String, Integer> products = new HashMap<>();
 
 	@Autowired
 	public ShoppingCartServiceImpl(ProductInventoryRepository productInventoryRepository,
