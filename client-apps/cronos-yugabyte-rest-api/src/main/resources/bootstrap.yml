@@ -1,3 +1,0 @@
-spring:
-  application:
-    name: cronos-yugabyte-rest-api
