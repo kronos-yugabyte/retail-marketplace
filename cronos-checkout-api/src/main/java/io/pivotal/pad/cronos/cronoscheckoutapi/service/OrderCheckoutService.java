@@ -1,4 +1,4 @@
-package io.pivotal.pad.cronos.cronoscheckoutapi.service;
+ package io.pivotal.pad.cronos.cronoscheckoutapi.service;
 
 import java.time.LocalDateTime;
 
@@ -37,7 +37,9 @@ public class OrderCheckoutService {
 		
 		
 		ShoppingCartKey currentKey = new ShoppingCartKey(userId, asin);
-		if (shoppingCartRepository.findById(currentKey).isPresent()) {
+		String shoppingCartKeyStr = userId + "-" + asin;
+		if (shoppingCartRepository.findById(shoppingCartKeyStr).isPresent()) {
+//		if (shoppingCartRepository.findByUserIdAndAsin(userId).isPresent()) {
 			shoppingCartRepository.updateQuantityForShoppingCart(userId, asin);
 			System.out.println("Adding product: " + asin);
 		} else {
@@ -49,7 +51,9 @@ public class OrderCheckoutService {
 	
 	private ShoppingCart createCartObject(ShoppingCartKey currentKey) {
 		ShoppingCart currentShoppingCart = new ShoppingCart();
-		currentShoppingCart.setShoppingCartKey(currentKey);
+		currentShoppingCart.setCartKey(currentKey.getId() + "-" + currentKey.getAsin());
+		currentShoppingCart.setUserId(currentKey.getId());
+		currentShoppingCart.setAsin(currentKey.getAsin());
 		LocalDateTime currentTime = LocalDateTime.now();
 		currentShoppingCart.setTime_added(currentTime.toString());
 		currentShoppingCart.setQuantity(DEFAULT_QUANTITY);

@@ -13,15 +13,19 @@ public class ShoppingCartKey implements Serializable {
 	*/
 	private static final long serialVersionUID = 343234890377423559L;
 
-	@Column(name = "userId")
+	@Column(name = "user_id")
 	private String id;
 
 	@Column(name = "asin")
 	private String asin;
 	
+	public ShoppingCartKey() {
+		
+	}
+	
 	public ShoppingCartKey(String id, String asin) {
 		this.id = id;
-		this.asin = id;
+		this.asin = asin;
 	}
 
 	public String getAsin() {

@@ -12,7 +12,7 @@ import io.pivotal.pad.cronos.cronoscheckoutapi.service.OrderCheckoutService;
 
 @RestController
 @RequestMapping(value = "/api/v1")
-public class ShoppingCartController {
+public class ShoppingCartContorller {
 	
 	@Autowired
 	OrderCheckoutService orderCheckoutService;
