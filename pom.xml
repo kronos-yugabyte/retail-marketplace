@@ -15,6 +15,7 @@
 		<module>cronos-checkout-api</module>
 		<module>cronos-react-ui</module>
 		<module>cronos-yugabyte-rest-api</module>
+                <module>eureka-server-local</module>
 	</modules>
 
 	<build>

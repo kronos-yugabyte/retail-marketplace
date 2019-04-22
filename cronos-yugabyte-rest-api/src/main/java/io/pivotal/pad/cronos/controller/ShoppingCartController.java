@@ -15,16 +15,21 @@ import io.pivotal.pad.cronos.domain.CheckoutStatus;
 import io.pivotal.pad.cronos.domain.Order;
 import io.pivotal.pad.cronos.exception.NotEnoughProductsInStockException;
 import io.pivotal.pad.cronos.service.ShoppingCartService;
+import io.pivotal.pad.cronos.service.ShoppingCartServiceRest;
 
 @RestController
 @RequestMapping(value = "/api/v1")
 public class ShoppingCartController {
 
 	private final ShoppingCartService shoppingCartService;
+	
+	private final ShoppingCartServiceRest shoppingCartServiceRest;
 
 	@Autowired
-	public ShoppingCartController(ShoppingCartService shoppingCartService) {
+	public ShoppingCartController(ShoppingCartService shoppingCartService, 
+			ShoppingCartServiceRest shoppingCartServiceRest ) {
 		this.shoppingCartService = shoppingCartService;
+		this.shoppingCartServiceRest = shoppingCartServiceRest;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/shoppingCart", produces = "application/json")
@@ -41,7 +46,8 @@ public class ShoppingCartController {
 	@RequestMapping(method = RequestMethod.POST, value = "/shoppingCart/addProduct", produces = "application/json")
 	public ResponseEntity<?> addProductToCart(@RequestParam("asin") String asin) {
 //		productService.findById(asin).ifPresent(shoppingCartService::addProduct);
-
+		String userId = "u1001";
+		shoppingCartServiceRest.addProduct(userId, asin);
 		shoppingCartService.addProduct(asin);
 		Map<String, Integer> productsInCart = shoppingCartService.getProductsInCart();
 
