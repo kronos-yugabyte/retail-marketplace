@@ -1,5 +1,7 @@
 package io.pivotal.pad.cronos.service.impl;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
@@ -25,6 +27,13 @@ public class ShoppingCartServiceRestImpl implements ShoppingCartServiceRest {
 		
 		String result = shoppingCartRestClient.addProductToCart(userId, product);
 		return result;
+	}
+
+	@Override
+	public Map<String, Integer> getProductsInCart(String userId) {
+		
+		Map<String, Integer> productsInCart = shoppingCartRestClient.getProductsInCart(userId);
+		return productsInCart;
 	}
 
 }

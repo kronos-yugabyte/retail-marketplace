@@ -48,9 +48,10 @@ public class ShoppingCartController {
 //		productService.findById(asin).ifPresent(shoppingCartService::addProduct);
 		String userId = "u1001";
 		shoppingCartServiceRest.addProduct(userId, asin);
-		shoppingCartService.addProduct(asin);
-		Map<String, Integer> productsInCart = shoppingCartService.getProductsInCart();
-
+		Map<String, Integer> productsInCart = shoppingCartServiceRest.getProductsInCart(userId);
+//		shoppingCartService.addProduct(asin);
+//		Map<String, Integer> productsInCart = shoppingCartService.getProductsInCart();
+		
 		if (productsInCart == null) {
 			return new ResponseEntity<Map<String, Integer>>(productsInCart, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
