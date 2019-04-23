@@ -28,5 +28,12 @@ public class ShoppingCartContorller {
 	public Map<String, Integer> getProductsInCart(@RequestParam("userid") String userId) {
 		return orderCheckoutService.getProductsInCart(userId);
 	}
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/shoppingCart/removeProduct", produces = "application/json")
+	public String removeProductFromCart(@RequestParam("userid") String userId, 
+			@RequestParam("asin") String asin) {
+		orderCheckoutService.removeProductFromCart(userId, asin);
+		return String.format("Removing from Cart");
+	}
 
 }

@@ -26,4 +26,9 @@ public interface ShoppingCartRepository extends CrudRepository<ShoppingCart, Str
 	@Query("SELECT sc FROM shopping_cart sc WHERE sc.userId = ?1")
 	Optional<List<ShoppingCart>> findProductsInCartByUserId(String userId);
 
+	@Modifying
+	@Transactional
+	@Query("UPDATE shopping_cart SET quantity = quantity - 1 WHERE user_id = ?1 AND asin =?2")
+	int decrementQuantityForShoppingCart(String userId, String asin);
+
 }

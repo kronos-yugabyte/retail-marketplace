@@ -1,4 +1,4 @@
- package io.pivotal.pad.cronos.cronoscheckoutapi.service;
+package io.pivotal.pad.cronos.cronoscheckoutapi.service;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -16,20 +16,20 @@ import io.pivotal.pad.cronos.cronoscheckoutapi.repositories.ShoppingCartReposito
 
 @Service
 public class OrderCheckoutService {
-	
+
 	private static final int DEFAULT_QUANTITY = 1;
 	private final OrderRepository orderRepository;
 	private final ProductInventoryRepository productInventoryRepository;
 	private final ShoppingCartRepository shoppingCartRepository;
-	
+
 	@Autowired
-	public OrderCheckoutService(OrderRepository orderRepository, 
-			ProductInventoryRepository productInventoryRepository, ShoppingCartRepository shoppingCartRepository) {
+	public OrderCheckoutService(OrderRepository orderRepository, ProductInventoryRepository productInventoryRepository,
+			ShoppingCartRepository shoppingCartRepository) {
 		this.orderRepository = orderRepository;
 		this.productInventoryRepository = productInventoryRepository;
 		this.shoppingCartRepository = shoppingCartRepository;
 	}
-	
+
 	/**
 	 * If product is in the map just increment quantity by 1. If product is not in
 	 * the map with, add it with quantity 1
@@ -37,8 +37,7 @@ public class OrderCheckoutService {
 	 * @param product
 	 */
 	public void addProductToShoppingCart(String userId, String asin) {
-		
-		
+
 		ShoppingCartKey currentKey = new ShoppingCartKey(userId, asin);
 		String shoppingCartKeyStr = userId + "-" + asin;
 		if (shoppingCartRepository.findById(shoppingCartKeyStr).isPresent()) {
@@ -51,22 +50,35 @@ public class OrderCheckoutService {
 			System.out.println("Adding product: " + asin);
 		}
 	}
-	
+
 	public Map<String, Integer> getProductsInCart(String userId) {
-		
+
 		Map<String, Integer> productsInCartAsin = new HashMap<String, Integer>();
-				
+
 		if (shoppingCartRepository.findProductsInCartByUserId(userId).isPresent()) {
-			
+
 			List<ShoppingCart> productsInCart = shoppingCartRepository.findProductsInCartByUserId(userId).get();
 			for (ShoppingCart item : productsInCart) {
 				productsInCartAsin.put(item.getAsin(), item.getQuantity());
 			}
-			
+
 		}
 		return productsInCartAsin;
 	}
-	
+
+	public void removeProductFromCart(String userId, String asin) {
+		String shoppingCartKeyStr = userId + "-" + asin;
+		if (shoppingCartRepository.findById(shoppingCartKeyStr).isPresent()) {
+			if (shoppingCartRepository.findById(shoppingCartKeyStr).get().getQuantity() > 1) {
+				shoppingCartRepository.decrementQuantityForShoppingCart(userId, asin);
+				System.out.println("Decrementing product: " + asin + " quantity");
+			} else if (shoppingCartRepository.findById(shoppingCartKeyStr).get().getQuantity() == 1) {
+				shoppingCartRepository.deleteById(shoppingCartKeyStr);
+				System.out.println("Removing product: " + asin + " since it was qty 1");
+			}
+		}
+	}
+
 	private ShoppingCart createCartObject(ShoppingCartKey currentKey) {
 		ShoppingCart currentShoppingCart = new ShoppingCart();
 		currentShoppingCart.setCartKey(currentKey.getId() + "-" + currentKey.getAsin());
@@ -75,13 +87,7 @@ public class OrderCheckoutService {
 		LocalDateTime currentTime = LocalDateTime.now();
 		currentShoppingCart.setTime_added(currentTime.toString());
 		currentShoppingCart.setQuantity(DEFAULT_QUANTITY);
-		
+
 		return currentShoppingCart;
 	}
-	
-	public void checkout() {
-		
-	}
-	
-	
 }

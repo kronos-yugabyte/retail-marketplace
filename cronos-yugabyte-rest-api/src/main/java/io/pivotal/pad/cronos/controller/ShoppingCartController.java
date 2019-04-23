@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 import io.pivotal.pad.cronos.domain.CheckoutStatus;
 import io.pivotal.pad.cronos.domain.Order;
 import io.pivotal.pad.cronos.exception.NotEnoughProductsInStockException;
+import io.pivotal.pad.cronos.service.CheckoutService;
 import io.pivotal.pad.cronos.service.ShoppingCartService;
 import io.pivotal.pad.cronos.service.ShoppingCartServiceRest;
 
@@ -21,21 +22,25 @@ import io.pivotal.pad.cronos.service.ShoppingCartServiceRest;
 @RequestMapping(value = "/api/v1")
 public class ShoppingCartController {
 
-	private final ShoppingCartService shoppingCartService;
+//	private final ShoppingCartService shoppingCartService;
 	
 	private final ShoppingCartServiceRest shoppingCartServiceRest;
-
+	
+	private final CheckoutService checkoutService;
+	
+	
 	@Autowired
-	public ShoppingCartController(ShoppingCartService shoppingCartService, 
+	public ShoppingCartController(CheckoutService checkoutService, 
 			ShoppingCartServiceRest shoppingCartServiceRest ) {
-		this.shoppingCartService = shoppingCartService;
+		this.checkoutService = checkoutService;
 		this.shoppingCartServiceRest = shoppingCartServiceRest;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/shoppingCart", produces = "application/json")
 	public @ResponseBody ResponseEntity<Map<String, Integer>> shoppingCart() {
-
-		Map<String, Integer> productsInCart = shoppingCartService.getProductsInCart();
+		
+		String userId = "u1001";
+		Map<String, Integer> productsInCart = shoppingCartServiceRest.getProductsInCart(userId);
 
 		if (productsInCart == null) {
 			return new ResponseEntity<Map<String, Integer>>(productsInCart, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -62,8 +67,9 @@ public class ShoppingCartController {
 	@RequestMapping(method = RequestMethod.POST, value = "/shoppingCart/removeProduct", produces = "application/json")
 	public ResponseEntity<Map<String, Integer>> removeProductFromCart(@RequestParam("asin") String asin) {
 //		productService.findById(asin).ifPresent(shoppingCartService::removeProduct);
-		shoppingCartService.removeProduct(asin);
-		Map<String, Integer> productsInCart = shoppingCartService.getProductsInCart();
+		String userId = "u1001";
+		shoppingCartServiceRest.removeProduct(userId, asin);
+		Map<String, Integer> productsInCart = shoppingCartServiceRest.getProductsInCart(userId);
 
 		if (productsInCart == null) {
 			return new ResponseEntity<Map<String, Integer>>(productsInCart, HttpStatus.INTERNAL_SERVER_ERROR);
@@ -73,9 +79,10 @@ public class ShoppingCartController {
 
 	@RequestMapping(method = RequestMethod.POST, value = "/shoppingCart/checkout", produces = "application/json")
 	public ResponseEntity<CheckoutStatus> checkout() {
+		String userId = "u1001";
 		CheckoutStatus checkoutStatus = new CheckoutStatus();
 		try {
-			Order currentOrder = shoppingCartService.checkout();
+			Order currentOrder = checkoutService.checkout(userId);
 			if (currentOrder != null) {
 				checkoutStatus.setOrderNumber(currentOrder.getId().toString());
 				checkoutStatus.setStatus(CheckoutStatus.SUCCESS);

@@ -16,5 +16,8 @@ public interface ShoppingCartRestClient {
 	
 	@RequestMapping("/shoppingCart/productsInCart")
 	Map<String, Integer> getProductsInCart(@RequestParam("userid") String userId);
-
+	
+	@RequestMapping("/shoppingCart/removeProduct")
+	String removeProductFromCart(@RequestParam("userid") String userId, 
+			@RequestParam("asin") String asin);
 }
