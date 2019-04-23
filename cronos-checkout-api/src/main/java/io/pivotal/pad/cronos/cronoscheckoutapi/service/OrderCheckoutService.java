@@ -1,6 +1,9 @@
  package io.pivotal.pad.cronos.cronoscheckoutapi.service;
 
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -47,6 +50,21 @@ public class OrderCheckoutService {
 			shoppingCartRepository.save(currentShoppingCart);
 			System.out.println("Adding product: " + asin);
 		}
+	}
+	
+	public Map<String, Integer> getProductsInCart(String userId) {
+		
+		Map<String, Integer> productsInCartAsin = new HashMap<String, Integer>();
+				
+		if (shoppingCartRepository.findProductsInCartByUserId(userId).isPresent()) {
+			
+			List<ShoppingCart> productsInCart = shoppingCartRepository.findProductsInCartByUserId(userId).get();
+			for (ShoppingCart item : productsInCart) {
+				productsInCartAsin.put(item.getAsin(), item.getQuantity());
+			}
+			
+		}
+		return productsInCartAsin;
 	}
 	
 	private ShoppingCart createCartObject(ShoppingCartKey currentKey) {

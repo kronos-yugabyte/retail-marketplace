@@ -1,5 +1,6 @@
 package io.pivotal.pad.cronos.cronoscheckoutapi.repositories;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.data.jpa.repository.Modifying;
@@ -21,5 +22,8 @@ public interface ShoppingCartRepository extends CrudRepository<ShoppingCart, Str
 	
 	@Query("SELECT quantity FROM shopping_cart WHERE user_id = ?1 AND asin = ?2")
 	Optional<Integer> findByUserIdAndAsin(String userId, String asin);
+	
+	@Query("SELECT sc FROM shopping_cart sc WHERE sc.userId = ?1")
+	Optional<List<ShoppingCart>> findProductsInCartByUserId(String userId);
 
 }
