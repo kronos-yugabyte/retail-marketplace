@@ -34,6 +34,6 @@ public interface ShoppingCartRepository extends CrudRepository<ShoppingCart, Str
 	@Modifying
 	@Transactional
 	@Query("DELETE FROM shopping_cart WHERE user_id = ?1")
-	Optional<List<ShoppingCart>> deleteProductsInCartByUserId(String userId);
+	int deleteProductsInCartByUserId(String userId);
 
 }
