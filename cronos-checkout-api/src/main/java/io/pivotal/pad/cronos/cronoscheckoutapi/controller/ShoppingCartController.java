@@ -12,7 +12,7 @@ import io.pivotal.pad.cronos.cronoscheckoutapi.service.OrderCheckoutService;
 
 @RestController
 @RequestMapping(value = "/cronos-checkout-api")
-public class ShoppingCartContorller {
+public class ShoppingCartController {
 	
 	@Autowired
 	OrderCheckoutService orderCheckoutService;
@@ -35,5 +35,10 @@ public class ShoppingCartContorller {
 		orderCheckoutService.removeProductFromCart(userId, asin);
 		return String.format("Removing from Cart");
 	}
-
+	
+	@RequestMapping(method = RequestMethod.GET, value = "/shoppingCart/clearCart", produces = "application/json")
+	public String clearCart(@RequestParam("userid") String userId) {
+		 orderCheckoutService.clearCart(userId);
+		 return String.format("Clearing Cart, Checkout successful");
+	}
 }

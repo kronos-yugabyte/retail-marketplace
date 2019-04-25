@@ -90,4 +90,12 @@ public class OrderCheckoutService {
 
 		return currentShoppingCart;
 	}
+
+	public void clearCart(String userId) {
+
+		if (shoppingCartRepository.findProductsInCartByUserId(userId).isPresent()) {
+			shoppingCartRepository.deleteProductsInCartByUserId(userId);
+			System.out.println("Deleteing all products for user: " + userId + " since checkout was successful");
+		}
+	}
 }

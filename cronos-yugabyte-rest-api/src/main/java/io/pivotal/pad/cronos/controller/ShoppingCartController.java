@@ -23,22 +23,20 @@ import io.pivotal.pad.cronos.service.ShoppingCartServiceRest;
 public class ShoppingCartController {
 
 //	private final ShoppingCartService shoppingCartService;
-	
+
 	private final ShoppingCartServiceRest shoppingCartServiceRest;
-	
+
 	private final CheckoutService checkoutService;
-	
-	
+
 	@Autowired
-	public ShoppingCartController(CheckoutService checkoutService, 
-			ShoppingCartServiceRest shoppingCartServiceRest ) {
+	public ShoppingCartController(CheckoutService checkoutService, ShoppingCartServiceRest shoppingCartServiceRest) {
 		this.checkoutService = checkoutService;
 		this.shoppingCartServiceRest = shoppingCartServiceRest;
 	}
 
 	@RequestMapping(method = RequestMethod.POST, value = "/shoppingCart", produces = "application/json")
 	public @ResponseBody ResponseEntity<Map<String, Integer>> shoppingCart() {
-		
+
 		String userId = "u1001";
 		Map<String, Integer> productsInCart = shoppingCartServiceRest.getProductsInCart(userId);
 
@@ -56,7 +54,7 @@ public class ShoppingCartController {
 		Map<String, Integer> productsInCart = shoppingCartServiceRest.getProductsInCart(userId);
 //		shoppingCartService.addProduct(asin);
 //		Map<String, Integer> productsInCart = shoppingCartService.getProductsInCart();
-		
+
 		if (productsInCart == null) {
 			return new ResponseEntity<Map<String, Integer>>(productsInCart, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
@@ -101,4 +99,5 @@ public class ShoppingCartController {
 		}
 		return new ResponseEntity<CheckoutStatus>(checkoutStatus, HttpStatus.OK);
 	}
+
 }

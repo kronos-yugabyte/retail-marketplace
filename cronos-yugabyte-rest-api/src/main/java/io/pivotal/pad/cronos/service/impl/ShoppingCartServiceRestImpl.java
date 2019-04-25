@@ -14,9 +14,9 @@ import io.pivotal.pad.cronos.service.ShoppingCartServiceRest;
 @Service
 @Scope(value = WebApplicationContext.SCOPE_SESSION, proxyMode = ScopedProxyMode.TARGET_CLASS)
 public class ShoppingCartServiceRestImpl implements ShoppingCartServiceRest {
-	
+
 	private final ShoppingCartRestClient shoppingCartRestClient;
-	
+
 	@Autowired
 	public ShoppingCartServiceRestImpl(ShoppingCartRestClient shoppingCartRestClient) {
 		this.shoppingCartRestClient = shoppingCartRestClient;
@@ -24,21 +24,27 @@ public class ShoppingCartServiceRestImpl implements ShoppingCartServiceRest {
 
 	@Override
 	public String addProduct(String userId, String asin) {
-		
+
 		String result = shoppingCartRestClient.addProductToCart(userId, asin);
 		return result;
 	}
 
 	@Override
 	public Map<String, Integer> getProductsInCart(String userId) {
-		
+
 		Map<String, Integer> productsInCart = shoppingCartRestClient.getProductsInCart(userId);
 		return productsInCart;
 	}
-	
+
 	@Override
 	public String removeProduct(String userId, String asin) {
 		String result = shoppingCartRestClient.removeProductFromCart(userId, asin);
+		return result;
+	}
+
+	@Override
+	public String clearCart(String userId) {
+		String result = shoppingCartRestClient.clearCart(userId);
 		return result;
 	}
 

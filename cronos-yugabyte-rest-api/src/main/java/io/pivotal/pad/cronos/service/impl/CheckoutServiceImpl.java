@@ -81,7 +81,8 @@ public class CheckoutServiceImpl implements CheckoutService {
 			cassandraTemplate.getCqlOperations().execute(updateCartpreparedStatement.toString());
 		}
 		products.clear();
-
+		shoppingCartRestClient.clearCart(userId);
+		System.out.println("*** Checkout complete, cart cleared ***");
 		return currentOrder;
 
 	}
